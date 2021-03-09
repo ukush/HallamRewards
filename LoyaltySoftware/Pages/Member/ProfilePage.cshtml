@@ -4,47 +4,48 @@
 }
 
 <h1>Member Profile</h1>
-
+<br />
+<h2>Personal Details</h2>
 <div>
     <table class="table table-active">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[0].Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[1].first_name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[3].last_name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[4].dob)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[5].telephone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[6].email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRec[7].total_points)
-                </th>
-            </tr>
-        </thead>
-
-
-        @for (int i = 0; i < Model.UserRec.Count; i++)
-        {
-            <tr>
-                <td>@Model.UserRec[i].Id </td>
-                <td>@Model.UserRec[i].first_name </td>
-                <td>@Model.UserRec[i].last_name </td>
-                <td>@Model.UserRec[i].dob </td>
-                <td>@Model.UserRec[i].telephone </td>
-                <td>@Model.UserRec[i].email </td>
-                <td>@Model.UserRec[i].total_points# </td>
-            </tr>
-        }
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].Id)</td>
+            <td>@Model.UserRec[0].Id</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[1].first_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[2].last_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[3].dob)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[4].telephone)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserRec[5].email)</td>
+        </tr>
     </table>
 </div>
+
+
+
+<br />
+<h2>Account Details</h2>
+<div>
+    <table class="table table-active">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserAccountRec[1].username)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.UserAccountRec[2].password)</td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+

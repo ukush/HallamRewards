@@ -27,7 +27,7 @@ namespace LoyaltySoftware.Pages.Member
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = conn;
-                command.CommandText = @"SELECT * FROM User";
+                command.CommandText = @"SELECT * FROM Userdbo";
 
                 SqlDataReader reader = command.ExecuteReader(); //SqlDataReader is used to read record from a table
 
@@ -35,15 +35,14 @@ namespace LoyaltySoftware.Pages.Member
 
                 while (reader.Read())
                 {
-                    User record = new User(); //a local var to hold a record temporarily
-                    record.Id = reader.GetInt32(0); //getting the first field from the table
-                    record.user_id = reader.GetInt32(1); //getting the second field from the table
-                    record.first_name = reader.GetString(2); //getting the third field from the table
-                    record.last_name = reader.GetString(3);
-                    record.dob = reader.GetString(4);
-                    record.telephone = reader.GetString(5);
-                    record.email = reader.GetString(6);
-                    record.total_points = reader.GetInt32(7);
+                    User record = new User(); 
+                    record.Id = reader.GetInt32(0); 
+                    record.first_name = reader.GetString(1);
+                    record.last_name = reader.GetString(2);
+                    record.dob = reader.GetString(3);
+                    record.telephone = reader.GetString(4);
+                    record.email = reader.GetString(5);
+                    record.total_points = reader.GetInt32(6);
 
                     UserRec.Add(record); //adding the single record into the list
                 }
@@ -55,10 +54,10 @@ namespace LoyaltySoftware.Pages.Member
 
                 while (reader.Read())
                 {
-                    UserAccount record = new UserAccount(); //a local var to hold a record temporarily
-                    record.Id = reader.GetInt32(0); //getting the first field from the table
-                    record.username = reader.GetString(1); //getting the second field from the table
-                    record.password = reader.GetString(2); //getting the third field from the table
+                    UserAccount record = new UserAccount();
+                    record.Id = reader.GetInt32(0);
+                    record.username = reader.GetString(1);
+                    record.password = reader.GetString(2);
                     record.status = reader.GetString(3);
                     record.userRole = reader.GetString(4);
 

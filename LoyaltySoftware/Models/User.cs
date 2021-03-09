@@ -8,7 +8,7 @@ namespace LoyaltySoftware.Models
 {
     public class User
     {
-
+        [Display(Name ="User ID")]
         public int Id { get; set; }
         public int user_id { get; set; }
         

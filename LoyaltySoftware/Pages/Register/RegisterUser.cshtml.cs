@@ -23,7 +23,6 @@ namespace LoyaltySoftware.Pages.Register
         {
         }
 
-       // set default values for status and role
 
         public IActionResult OnPost()
         {
@@ -38,22 +37,25 @@ namespace LoyaltySoftware.Pages.Register
 
                 command.CommandText = @"SET IDENTITY_INSERT UserAccount ON";
 
-                command.CommandText = @"INSERT INTO User Id, first_name, last_name, dob, telephone, email, total_points) VALUES (@UID, @fname, @lname, @dob, @tphone, @email, @tpoints)";
+                command.CommandText = @"INSERT INTO Userdbo (first_name, last_name, dob, telephone, email, total_points) VALUES (@fname, @lname, @dob, @tphone, @email, @tpoints)";
 
-                command.Parameters.AddWithValue("@UID", UserRecord.Id);
+                //command.Parameters.AddWithValue("@UID", UserRecord.Id);
                 command.Parameters.AddWithValue("@fname", UserRecord.first_name);
                 command.Parameters.AddWithValue("@lname", UserRecord.last_name);
                 command.Parameters.AddWithValue("@dob", UserRecord.dob);
                 command.Parameters.AddWithValue("@tphone", UserRecord.telephone);
                 command.Parameters.AddWithValue("@email", UserRecord.email);
-                command.Parameters.AddWithValue("@tpoints", UserRecord.total_points); // set to 0 by default for new members
+                command.Parameters.AddWithValue("@tpoints", 0); // set to 0 by default for new members
+
+                command.CommandText = @"SET IDENTITY_INSERT UserAccount OFF";
 
                 // insert username/password into useraccount table
                 // status, role, user_id are not user input --> status is active, role is member by default.
 
-                command.CommandText = @"INSERT INTO UserAccount (Id, username, password, status, userRole) VALUES (@UAID, @uname, @pword, @sts, @urole)";
+                command.CommandText = @"SET IDENTITY_INSERT UserAccount ON";
 
-                command.Parameters.AddWithValue("@UAID", UserAccountRecord.Id);
+                command.CommandText = @"INSERT INTO UserAccount (username, password, status, userRole) VALUES (@uname, @pword, @sts, @urole)";
+
                 command.Parameters.AddWithValue("@uname", UserAccountRecord.username);
                 command.Parameters.AddWithValue("@pword", UserAccountRecord.password);
                 command.Parameters.AddWithValue("@sts", "active"); // set to "active" by default
@@ -66,7 +68,7 @@ namespace LoyaltySoftware.Pages.Register
             }
 
 
-            return RedirectToPage("/Member/ProfilePage");
+            return RedirectToPage("/Member/Dashboard");
         }
 
         }
