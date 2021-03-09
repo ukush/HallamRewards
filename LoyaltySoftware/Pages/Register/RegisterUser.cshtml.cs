@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Wordprocessing;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -26,7 +27,8 @@ namespace LoyaltySoftware.Pages.Register
 
         public IActionResult OnPost()
         {
-            string DbConnection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Uwais\source\repos\LoyaltySoftware2\LoyaltySoftware\LoyaltySoftware\Database\LoyaltySystem.mdf;Integrated Security=True";
+            DBConnection dbstring = new DBConnection(); //creating an object from the class
+            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
 
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
@@ -56,8 +58,8 @@ namespace LoyaltySoftware.Pages.Register
 
                 command.CommandText = @"INSERT INTO UserAccount (username, password, status, userRole) VALUES (@uname, @pword, @sts, @urole)";
 
-                command.Parameters.AddWithValue("@uname", UserAccountRecord.username);
-                command.Parameters.AddWithValue("@pword", UserAccountRecord.password);
+                command.Parameters.AddWithValue("@uname", UserAccountRecord.Username);
+                command.Parameters.AddWithValue("@pword", UserAccountRecord.Password);
                 command.Parameters.AddWithValue("@sts", "active"); // set to "active" by default
                 command.Parameters.AddWithValue("@urole", "member"); // set to "member" by default
 

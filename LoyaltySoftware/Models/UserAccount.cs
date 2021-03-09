@@ -1,7 +1,10 @@
-﻿using System;
+using LoyaltySoftware.Pages.Shared;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,72 +13,148 @@ namespace LoyaltySoftware.Models
     
     public class UserAccount
     {
-
         public int Id { get; set; }
-        public int userID { get; set; }
-
-        [Display(Name = "Username")]
         [Required]
-        public string username { get; set; }
-
+        [Display(Name = "User Name")]
+        public string Username { get; set; }
+        [Required]
         [Display(Name = "Password")]
-        [Required]
-        public string password { get; set; }
-        public string status { get; set; }
+        public string Password { get; set; }
+        public string Status { get; set; }
 
-        public string userRole { get; set; }
+        public string UserRole { get; set; }
 
-        static string[] userRoles = new string[] { "member", "admin" };
-        static string[] userStatuses = new string[] { "active", "suspended", "revoked" };
-        public static Dictionary<string, string> accounts = new Dictionary<string, string>();
+        static string[] UserRoles = new string[] { "member", "admin" };
+        static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
 
-        public static void AddAccount(string username, string password)
+
+        public static string checkRole(string username)
         {
-            if(!accounts.ContainsKey(username))
+            string userRole = "";
+
+            using (SqlCommand command = new SqlCommand())
             {
-                accounts.Add(username, password);
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT Username, UserRole FROM UserAccount WHERE Username = @UName";
+
+                command.Parameters.AddWithValue("@UName", username);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    userRole = reader.GetString(1);
+                }
+
+                return userRole;
             }
-            else
+
+        }
+        public static string checkStatus(string username)
+        {
+            string userStatus = "";
+
+            using (SqlCommand command = new SqlCommand())
             {
-                Console.WriteLine("Username already exists.");
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT Username, UserStatus FROM UserAccount WHERE Username = @UName";
+
+                command.Parameters.AddWithValue("@UName", username);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    userStatus = reader.GetString(1);
+                }
+
+                return userStatus;
             }
         }
 
-        public static string checkRole(string userRole)
+        
+
+        public static bool checkIfUsernameExists(string inputUsername)
         {
-            foreach(string possibleRole in userRoles)
+            string username="";
+            using (SqlCommand command = new SqlCommand())
             {
-                if (userRole.ToLower() == possibleRole) return userRole;
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT Username FROM UserAccount WHERE Username = @UName";
+
+                command.Parameters.AddWithValue("@UName", inputUsername);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    username = reader.GetString(0);
+                }
+
+                if (!string.IsNullOrEmpty(username))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
             }
-            return "Invalid role";
         }
 
-        public static string checkStatus(string userStatus)
+        public static bool checkPassword(string inputUsername, string inputPassword)
         {
-            foreach (string possibleStatus in userStatuses)
-            {
-                if (userStatus.ToLower() == possibleStatus) return userStatus;
-            }
-            return "Invalid status";
-        }
+            string password="";
 
-        public static bool checkIfUsernameExists(string username)
-        {
-            foreach(KeyValuePair<string, string> value in accounts)
+            using (SqlCommand command = new SqlCommand())
             {
-                if (username == value.Key) return true;
-            }
-            return false;
-        }
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
 
-        public static bool checkPassword(string username, string password)
-        {
-            foreach (KeyValuePair<string, string> value in accounts)
-            {
-                if (username == value.Key)
-                    if (password == value.Value) return true;
+                command.Connection = conn;
+                command.CommandText = @"SELECT Username, Password FROM UserAccount WHERE Username = @UName";
+
+                command.Parameters.AddWithValue("@UName", inputUsername);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    password = reader.GetString(1);
+                }
+
+                if (inputPassword!=password)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+
             }
-            return false;
         }
     }
 }
+
+

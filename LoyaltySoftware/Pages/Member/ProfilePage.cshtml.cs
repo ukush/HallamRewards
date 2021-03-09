@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -19,8 +20,8 @@ namespace LoyaltySoftware.Pages.Member
 
         public void OnGet()
         {
-            string DbConnection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Uwais\source\repos\LoyaltySoftware2\LoyaltySoftware\LoyaltySoftware\Database\LoyaltySystem.mdf;Integrated Security=True";
-
+            DBConnection dbstring = new DBConnection(); //creating an object from the class
+            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
@@ -56,10 +57,10 @@ namespace LoyaltySoftware.Pages.Member
                 {
                     UserAccount record = new UserAccount();
                     record.Id = reader.GetInt32(0);
-                    record.username = reader.GetString(1);
-                    record.password = reader.GetString(2);
-                    record.status = reader.GetString(3);
-                    record.userRole = reader.GetString(4);
+                    record.Username = reader.GetString(1);
+                    record.Password = reader.GetString(2);
+                    record.Status = reader.GetString(3);
+                    record.UserRole = reader.GetString(4);
 
                     UserAccountRec.Add(record); //adding the single record into the list
                 }

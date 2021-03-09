@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LoyaltySoftware.Pages.Login
 {
-    public class loginModel : PageModel
+    public class UserLoginModel : PageModel
     {
         [BindProperty]
         public UserAccount UserAccount { get; set; }
@@ -24,53 +25,43 @@ namespace LoyaltySoftware.Pages.Login
 
         public IActionResult OnPost()
         {
-
-            string DbConnection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Uwais\Downloads\LoyaltySoftware-loginValidation\LoyaltySoftware-loginValidation\LoyaltySoftware\Database\LoyaltySystem.mdf;Integrated Security=True";
-
-
+            DBConnection dbstring = new DBConnection(); //creating an object from the class
+            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+            Console.WriteLine(DbConnection);
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
-            using (SqlCommand command = new SqlCommand())
+            Console.WriteLine(UserAccount.Username);
+            Console.WriteLine(UserAccount.Password);
+
+            if (string.IsNullOrEmpty(UserAccount.Username))
             {
-                command.Connection = conn;
-                command.CommandText = @"SELECT , , , UserRole FROM User WHERE userID = @UID, username = @UName, password = @Pwd AND userRole = @URole";
+                Message = "Please enter a username!";
+                return Page();
+            }
+            else if (string.IsNullOrEmpty(UserAccount.Password))
+            {
+                Message = "Please enter a password!";
+                return Page();
+            }
+            else
+            {
 
-                command.Parameters.AddWithValue("@UID", UserAccount.userID);
-                command.Parameters.AddWithValue("@UName", UserAccount.username);
-                command.Parameters.AddWithValue("@Pwd", UserAccount.password);
-                command.Parameters.AddWithValue("@URole", UserAccount.userRole);
-
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    UserAccount.userID = reader.GetInt32(0);
-                    UserAccount.username = reader.GetString(1);
-                    UserAccount.password = reader.GetString(2);
-                    UserAccount.userRole = reader.GetString(3);
-                }
-
-                if (!string.IsNullOrEmpty(UserAccount.userID.ToString()))
+                if (UserAccount.checkIfUsernameExists(UserAccount.Username))
                 {
                     SessionID = HttpContext.Session.Id;
                     HttpContext.Session.SetString("sessionID", SessionID);
-                    HttpContext.Session.SetString("username", UserAccount.username);
-                    HttpContext.Session.SetString("fname", UserAccount.password);
+                    HttpContext.Session.SetString("username", UserAccount.Username);
+                    HttpContext.Session.SetString("password", UserAccount.Password);
 
-                    if (!UserAccount.checkIfUsernameExists(UserAccount.username))
+                    if (!UserAccount.checkPassword(UserAccount.Username, UserAccount.Password))
                     {
-                        Message = "Username does not exists!";
-                        return Page();
-                    }
-                    else if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))
-                    {
-                        Message = "Username does not exists!";
+                        Message = "Password does not match!";
                         return Page();
                     }
                     else
                     {
-                        if (UserAccount.checkRole(UserAccount.userRole) == "member")
+                        if (UserAccount.checkRole(UserAccount.Username) == "member")
                         {
                             return RedirectToPage("/MemberPages/Dashboard");
                         }
@@ -80,16 +71,16 @@ namespace LoyaltySoftware.Pages.Login
                         }
                     }
                 }
-
-
-
-
-
-                return RedirectToPage("/Index");
-
+                else
+                {
+                    Message = "Username does not exist!";
+                    return Page();
+                }
             }
+
+            
         }
     }
-
-           
 }
+
+
