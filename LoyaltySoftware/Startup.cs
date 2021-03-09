@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using LoyaltySoftware.Data;
 
 namespace LoyaltySoftware
 {
@@ -27,8 +25,13 @@ namespace LoyaltySoftware
         {
             services.AddRazorPages();
 
-            services.AddDbContext<LoyaltySoftwareContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LoyaltySoftwareContext")));
+            services.AddSession(o => {
+                o.IdleTimeout = TimeSpan.FromSeconds(120);//change 120 to any timespan
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +52,8 @@ namespace LoyaltySoftware
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

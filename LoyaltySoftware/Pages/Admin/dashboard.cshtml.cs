@@ -23,7 +23,7 @@ namespace LoyaltySoftware.Pages.AdminPages
 
             if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {
-                return RedirectToPage("/Login/Login");
+                return RedirectToPage("/Login/UserLogin");
             }
             return Page();
 
