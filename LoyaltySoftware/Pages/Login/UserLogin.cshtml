@@ -1,5 +1,5 @@
 @page
-@model LoyaltySoftware.Pages.Login.loginModel
+@model LoyaltySoftware.Pages.Login.UserLoginModel
 @{ }
 
 <h1> Login Portal</h1>
@@ -11,13 +11,13 @@
    <div class="form-group">
     <label class="control-label">Username</label>
     <input type="text" asp-for="UserAccount.Username" class="form-control" />
-    <p style="color: red">@Model.UsernameMessage</p>
+    <p style="color: red">@Model.Message</p>
    </div>
 
    <div class="form-group">
     <label asp-for="UserAccount.Password" class="control-label">Password</label>
     <input asp-for="UserAccount.Password" type="password" class="form-control" />
-    <p style="color: red">@Model.PasswordMessage</p>
+    <p style="color: red">@Model.Message</p>
    </div>
 
 

@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LoyaltySoftware.Pages.AdminPages
+namespace LoyaltySoftware.Pages.Login
 {
-    public class dashboardModel : PageModel
+    public class MemberDashboardModel : PageModel
     {
         public string Username;
+
         public const string SessionKeyName1 = "username";
 
         public string SessionID;
@@ -30,3 +34,4 @@ namespace LoyaltySoftware.Pages.AdminPages
         }
     }
 }
+
