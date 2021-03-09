@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Logout\**" />
-    <Content Remove="Pages\Logout\**" />
-    <EmbeddedResource Remove="Pages\Logout\**" />
-    <None Remove="Pages\Logout\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Classes\NewFile.txt" />
   </ItemGroup>
 
