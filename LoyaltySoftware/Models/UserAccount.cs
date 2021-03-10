@@ -47,7 +47,7 @@ namespace LoyaltySoftware.Models
 
                 command.Parameters.AddWithValue("@UName", username);
 
-                var reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -75,8 +75,7 @@ namespace LoyaltySoftware.Models
 
                 command.Parameters.AddWithValue("@UName", username);
 
-
-                var reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -104,7 +103,7 @@ namespace LoyaltySoftware.Models
 
                 command.Parameters.AddWithValue("@UName", inputUsername);
 
-                var reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -140,7 +139,7 @@ namespace LoyaltySoftware.Models
 
                 command.Parameters.AddWithValue("@UName", inputUsername);
 
-                var reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {

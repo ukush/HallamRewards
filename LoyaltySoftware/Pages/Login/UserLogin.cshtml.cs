@@ -61,7 +61,7 @@ namespace LoyaltySoftware.Pages.Login
                     }
                     else
                     {
-                        if (UserAccount.checkRole(UserAccount.user_role) == "member")
+                        if (UserAccount.checkRole(UserAccount.username) == "member")
                         {
                             return RedirectToPage("/Member/MemberDashboard");
                         }

@@ -13,6 +13,11 @@ namespace LoyaltySoftware.Pages.Login
 {
     public class MemberDashboardModel : PageModel
     {
+
+        [BindProperty]
+        public Userdbo UserRecord { get; set; }
+
+
         public string Username;
 
         public const string SessionKeyName1 = "username";

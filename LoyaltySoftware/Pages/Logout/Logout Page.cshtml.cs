@@ -9,8 +9,12 @@ namespace LoyaltySoftware.Pages.Logout
 {
     public class Logout_PageModel : PageModel
     {
+
+
         public void OnGet()
         {
+            HttpContext.Session.Clear();
         }
+
     }
 }

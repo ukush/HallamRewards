@@ -33,6 +33,8 @@ namespace LoyaltySoftware.Pages.Member
         
             if (Userdbo.CheckUserId(UserRecord.user_id))
             {
+
+            UserRecord.user_id = UserRecord.user_id;
             conn.Close();
             return RedirectToPage("/Member/ResetPassword");
             }

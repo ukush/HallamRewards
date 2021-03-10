@@ -16,34 +16,14 @@ namespace LoyaltySoftware.Pages.Member
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
 
-        public IActionResult OnGet(int? id)
+        [BindProperty]
+        public Userdbo UserRecord { get; set; }
+
+
+
+        public void OnGet()
         {
 
-            DBConnection dbstring = new DBConnection();      //creating an object from the class
-            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
-            SqlConnection conn = new SqlConnection(DbConnection);
-            conn.Open();
-
-            using (SqlCommand command = new SqlCommand())
-            {
-
-                command.Connection = conn;
-                command.CommandText = @"SELECT password FROM UserAccount WHERE Id = @ID";
-
-                command.Parameters.AddWithValue("@ID", id);
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    UserAccountRecord.password = reader.GetString(3);
-                }
-
-            }
-
-            conn.Close();
-
-            return Page();
         }
 
 
@@ -60,9 +40,12 @@ namespace LoyaltySoftware.Pages.Member
             {
 
                 command.Connection = conn;
-                command.CommandText = @"UPDATE UserAccount SET password = @newPw";
+                command.CommandText = @"UPDATE UserAccount SET password = @newPw WHERE user_id = @UID";
 
+
+                command.Parameters.AddWithValue("@UID", UserRecord.user_id); 
                 command.Parameters.AddWithValue("@NewPw", UserAccountRecord.password);
+
 
                 command.ExecuteReader();
             }
