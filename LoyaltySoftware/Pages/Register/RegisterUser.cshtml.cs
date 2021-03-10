@@ -15,7 +15,7 @@ namespace LoyaltySoftware.Pages.Register
     {
 
         [BindProperty]
-        public User UserRecord { get; set; }
+        public Userdbo UserRecord { get; set; }
 
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
@@ -39,7 +39,7 @@ namespace LoyaltySoftware.Pages.Register
 
                 command.CommandText = @"SET IDENTITY_INSERT UserAccount ON";
 
-                command.CommandText = @"INSERT INTO Userdbo (first_name, last_name, dob, telephone, email, total_points) VALUES (@fname, @lname, @dob, @tphone, @email, @tpoints)";
+                command.CommandText = @"INSERT INTO Userdbo (first_name, last_name, dob, telephone, email, points) VALUES (@fname, @lname, @dob, @tphone, @email, @points)";
 
                 //command.Parameters.AddWithValue("@UID", UserRecord.Id);
                 command.Parameters.AddWithValue("@fname", UserRecord.first_name);
@@ -47,7 +47,7 @@ namespace LoyaltySoftware.Pages.Register
                 command.Parameters.AddWithValue("@dob", UserRecord.dob);
                 command.Parameters.AddWithValue("@tphone", UserRecord.telephone);
                 command.Parameters.AddWithValue("@email", UserRecord.email);
-                command.Parameters.AddWithValue("@tpoints", 0); // set to 0 by default for new members
+                command.Parameters.AddWithValue("@points", 0); // set to 0 by default for new members
 
                 command.CommandText = @"SET IDENTITY_INSERT UserAccount OFF";
 
@@ -56,10 +56,10 @@ namespace LoyaltySoftware.Pages.Register
 
                 command.CommandText = @"SET IDENTITY_INSERT UserAccount ON";
 
-                command.CommandText = @"INSERT INTO UserAccount (username, password, status, userRole) VALUES (@uname, @pword, @sts, @urole)";
+                command.CommandText = @"INSERT INTO UserAccount (username, password, status, user_role) VALUES (@uname, @pword, @sts, @urole)";
 
-                command.Parameters.AddWithValue("@uname", UserAccountRecord.Username);
-                command.Parameters.AddWithValue("@pword", UserAccountRecord.Password);
+                command.Parameters.AddWithValue("@uname", UserAccountRecord.username);
+                command.Parameters.AddWithValue("@pword", UserAccountRecord.password);
                 command.Parameters.AddWithValue("@sts", "active"); // set to "active" by default
                 command.Parameters.AddWithValue("@urole", "member"); // set to "member" by default
 

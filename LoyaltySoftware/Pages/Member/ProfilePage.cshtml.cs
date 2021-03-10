@@ -13,7 +13,7 @@ namespace LoyaltySoftware.Pages.Member
     public class ProfilePageModel : PageModel
     {
 
-        public List<User> UserRec { get; set; }
+        public List<Userdbo> UserRec { get; set; }
 
         public List<UserAccount> UserAccountRec { get; set; }
 
@@ -32,12 +32,12 @@ namespace LoyaltySoftware.Pages.Member
 
                 SqlDataReader reader = command.ExecuteReader(); //SqlDataReader is used to read record from a table
 
-                UserRec = new List<User>(); //this object of list is created to populate all records from the table
+                UserRec = new List<Userdbo>(); //this object of list is created to populate all records from the table
 
                 while (reader.Read())
                 {
-                    User record = new User(); 
-                    record.Id = reader.GetInt32(0); 
+                    Userdbo record = new Userdbo(); 
+                    record.user_id = reader.GetInt32(0); 
                     record.first_name = reader.GetString(1);
                     record.last_name = reader.GetString(2);
                     record.dob = reader.GetString(3);
@@ -57,10 +57,10 @@ namespace LoyaltySoftware.Pages.Member
                 {
                     UserAccount record = new UserAccount();
                     record.Id = reader.GetInt32(0);
-                    record.Username = reader.GetString(1);
-                    record.Password = reader.GetString(2);
-                    record.Status = reader.GetString(3);
-                    record.UserRole = reader.GetString(4);
+                    record.username = reader.GetString(1);
+                    record.password = reader.GetString(2);
+                    record.status = reader.GetString(3);
+                    record.user_role = reader.GetString(4);
 
                     UserAccountRec.Add(record); //adding the single record into the list
                 }

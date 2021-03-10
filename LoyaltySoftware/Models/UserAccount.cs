@@ -16,46 +16,22 @@ namespace LoyaltySoftware.Models
         public int Id { get; set; }
         [Required]
         [Display(Name = "User Name")]
-        public string Username { get; set; }
+        public string username { get; set; }
         [Required]
         [Display(Name = "Password")]
-        public string Password { get; set; }
-        public string Status { get; set; }
+        public string password { get; set; }
+        public string status { get; set; }
 
-        public string UserRole { get; set; }
+        public string user_role { get; set; }
 
         static string[] UserRoles = new string[] { "member", "admin" };
         static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
 
 
-        public static string checkRole(string username)
-        {
-            string userRole = "";
+       
 
-            using (SqlCommand command = new SqlCommand())
-            {
-                DBConnection dbstring = new DBConnection();      //creating an object from the class
-                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
-                SqlConnection conn = new SqlConnection(DbConnection);
-                conn.Open();
 
-                command.Connection = conn;
-                command.CommandText = @"SELECT Username, UserRole FROM UserAccount WHERE Username = @UName";
-
-                command.Parameters.AddWithValue("@UName", username);
-
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    userRole = reader.GetString(1);
-                }
-
-                return userRole;
-            }
-
-        }
-        public static string checkStatus(string username)
+            public static string checkStatus(string username)
         {
             string userStatus = "";
 
@@ -67,7 +43,7 @@ namespace LoyaltySoftware.Models
                 conn.Open();
 
                 command.Connection = conn;
-                command.CommandText = @"SELECT Username, UserStatus FROM UserAccount WHERE Username = @UName";
+                command.CommandText = @"SELECT username, status FROM UserAccount WHERE username = @UName";
 
                 command.Parameters.AddWithValue("@UName", username);
 
@@ -82,7 +58,36 @@ namespace LoyaltySoftware.Models
             }
         }
 
-        
+
+        public static string checkRole(string username)
+        {
+            string userRole = "";
+
+            using (SqlCommand command = new SqlCommand())
+            {
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT username, user_role FROM UserAccount WHERE username = @UName";
+
+                command.Parameters.AddWithValue("@UName", username);
+
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    userRole = reader.GetString(1);
+                }
+
+                return userRole;
+            }
+
+        }
+
 
         public static bool checkIfUsernameExists(string inputUsername)
         {
@@ -95,7 +100,7 @@ namespace LoyaltySoftware.Models
                 conn.Open();
 
                 command.Connection = conn;
-                command.CommandText = @"SELECT Username FROM UserAccount WHERE Username = @UName";
+                command.CommandText = @"SELECT username FROM userAccount WHERE username = @UName";
 
                 command.Parameters.AddWithValue("@UName", inputUsername);
 
@@ -121,7 +126,7 @@ namespace LoyaltySoftware.Models
 
         public static bool checkPassword(string inputUsername, string inputPassword)
         {
-            string password="";
+            string password = "";
 
             using (SqlCommand command = new SqlCommand())
             {
@@ -131,7 +136,7 @@ namespace LoyaltySoftware.Models
                 conn.Open();
 
                 command.Connection = conn;
-                command.CommandText = @"SELECT Username, Password FROM UserAccount WHERE Username = @UName";
+                command.CommandText = @"SELECT username, password FROM UserAccount WHERE username = @UName";
 
                 command.Parameters.AddWithValue("@UName", inputUsername);
 
@@ -142,7 +147,7 @@ namespace LoyaltySoftware.Models
                     password = reader.GetString(1);
                 }
 
-                if (inputPassword!=password)
+                if (inputPassword != password)
                 {
                     return false;
                 }
@@ -151,9 +156,10 @@ namespace LoyaltySoftware.Models
                     return true;
                 }
 
-
             }
         }
+
+
     }
 }
 

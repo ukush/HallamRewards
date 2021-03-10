@@ -14,6 +14,6 @@ namespace LoyaltySoftware.Data
         {
         }
 
-        public DbSet<LoyaltySoftware.Models.User> User { get; set; }
+        public DbSet<LoyaltySoftware.Models.Userdbo> User { get; set; }
     }
 }

@@ -31,15 +31,15 @@ namespace LoyaltySoftware.Pages.Login
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
-            Console.WriteLine(UserAccount.Username);
-            Console.WriteLine(UserAccount.Password);
+            Console.WriteLine(UserAccount.username);
+            Console.WriteLine(UserAccount.password);
 
-            if (string.IsNullOrEmpty(UserAccount.Username))
+            if (string.IsNullOrEmpty(UserAccount.username))
             {
                 Message = "Please enter a username!";
                 return Page();
             }
-            else if (string.IsNullOrEmpty(UserAccount.Password))
+            else if (string.IsNullOrEmpty(UserAccount.password))
             {
                 Message = "Please enter a password!";
                 return Page();
@@ -47,27 +47,27 @@ namespace LoyaltySoftware.Pages.Login
             else
             {
 
-                if (UserAccount.checkIfUsernameExists(UserAccount.Username))
+                if (UserAccount.checkIfUsernameExists(UserAccount.username))
                 {
                     SessionID = HttpContext.Session.Id;
                     HttpContext.Session.SetString("sessionID", SessionID);
-                    HttpContext.Session.SetString("username", UserAccount.Username);
-                    HttpContext.Session.SetString("password", UserAccount.Password);
+                    HttpContext.Session.SetString("username", UserAccount.username);
+                    HttpContext.Session.SetString("password", UserAccount.password);
 
-                    if (!UserAccount.checkPassword(UserAccount.Username, UserAccount.Password))
+                    if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))
                     {
                         Message = "Password does not match!";
                         return Page();
                     }
                     else
                     {
-                        if (UserAccount.checkRole(UserAccount.Username) == "member")
+                        if (UserAccount.checkRole(UserAccount.user_role) == "member")
                         {
-                            return RedirectToPage("/MemberPages/Dashboard");
+                            return RedirectToPage("/Member/MemberDashboard");
                         }
                         else
                         {
-                            return RedirectToPage("/AdminPages/Dashboard");
+                            return RedirectToPage("/Admin/AdminDashboard");
                         }
                     }
                 }
