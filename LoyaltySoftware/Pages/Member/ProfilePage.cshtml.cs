@@ -20,8 +20,8 @@ namespace LoyaltySoftware.Pages.Member
 
         public void OnGet()
         {
-            DBConnection dbstring = new DBConnection(); //creating an object from the class
-            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
@@ -30,44 +30,41 @@ namespace LoyaltySoftware.Pages.Member
                 command.Connection = conn;
                 command.CommandText = @"SELECT * FROM Userdbo";
 
-                SqlDataReader reader = command.ExecuteReader(); //SqlDataReader is used to read record from a table
+                SqlDataReader reader = command.ExecuteReader();
 
-                UserRec = new List<Userdbo>(); //this object of list is created to populate all records from the table
+                UserRec = new List<Userdbo>();
 
-                while (reader.Read())
-                {
-                    Userdbo record = new Userdbo(); 
-                    record.user_id = reader.GetInt32(0); 
-                    record.first_name = reader.GetString(1);
-                    record.last_name = reader.GetString(2);
-                    record.dob = reader.GetString(3);
-                    record.telephone = reader.GetString(4);
-                    record.email = reader.GetString(5);
-                    record.total_points = reader.GetInt32(6);
 
-                    UserRec.Add(record); //adding the single record into the list
-                }
+                reader.Read();
+
+
+                Userdbo record1 = new Userdbo(); 
+                record1.user_id = reader.GetInt32(0); 
+                record1.first_name = reader.GetString(1);
+                record1.last_name = reader.GetString(2);
+                record1.dob = reader.GetString(3);
+                record1.telephone = reader.GetString(4);
+                record1.email = reader.GetString(5);
+
+                UserRec.Add(record1);
 
                 command.CommandText = @"SELECT * FROM UserAccount";
 
+                UserAccountRec = new List<UserAccount>();
 
-                UserAccountRec = new List<UserAccount>(); //this object of list is created to populate all records from the table
 
-                while (reader.Read())
-                {
-                    UserAccount record = new UserAccount();
-                    record.Id = reader.GetInt32(0);
-                    record.username = reader.GetString(1);
-                    record.password = reader.GetString(2);
-                    record.status = reader.GetString(3);
-                    record.user_role = reader.GetString(4);
 
-                    UserAccountRec.Add(record); //adding the single record into the list
-                }
 
-                // Call Close when done reading.
+                UserAccount record2 = new UserAccount();
+                record2.username = reader.GetString(1);     // why is this reading from userdbo and NOT UserAccount Table??
+                record2.password = reader.GetString(2);
+
+                UserAccountRec.Add(record2);
+
+
                 reader.Close();
+
+                }
             }
         }
-    }
 }
