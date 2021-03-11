@@ -20,8 +20,11 @@ namespace LoyaltySoftware.Models
         [Required]
         [Display(Name = "Password")]
         public string password { get; set; }
+        [Required]
+        [Display(Name = "Status")]
         public string status { get; set; }
-
+        [Required]
+        [Display(Name = "User Role")]
         public string user_role { get; set; }
 
         public string user_id { get; set; }
