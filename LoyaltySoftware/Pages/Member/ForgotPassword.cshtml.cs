@@ -15,6 +15,10 @@ namespace LoyaltySoftware.Pages.Member
         [BindProperty]
         public Userdbo UserRecord { get; set; }
 
+        [BindProperty]
+        public Userdbo UserAccountRecord { get; set; }
+
+
         public string Message { get; set; }
         public void OnGet()
         {
@@ -22,31 +26,29 @@ namespace LoyaltySoftware.Pages.Member
 
         public IActionResult OnPost()
         {
-            DBConnection dbstring = new DBConnection(); //creating an object from the class
-            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
             Console.WriteLine(DbConnection);
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
             Console.WriteLine(UserRecord.user_id);
 
-        
+
             if (Userdbo.CheckUserId(UserRecord.user_id))
             {
 
-            UserRecord.user_id = UserRecord.user_id;
-            conn.Close();
-            return RedirectToPage("/Member/ResetPassword");
+                UserRecord.user_id = UserRecord.user_id;
+                conn.Close();
+                return RedirectToPage("/Member/ResetPassword");
             }
             else
             {
                 Message = "That ID is not recognised.";
+            }
             conn.Close();
             return Page();
             }
-
-            
-        }
     }
 
 }
