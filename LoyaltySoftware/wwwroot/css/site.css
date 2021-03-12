@@ -100,3 +100,7 @@ body {
     max-width: 100%;
     padding: 50px 0;
 }
+
+.heading{
+    align-items: center;
+}
