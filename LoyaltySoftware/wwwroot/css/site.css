@@ -90,3 +90,13 @@ body {
 .header{
     background: radial-gradient(#fff, #ffd6d6);
 }
+
+.frontImage{
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.frontImage img{
+    max-width: 100%;
+    padding: 50px 0;
+}
