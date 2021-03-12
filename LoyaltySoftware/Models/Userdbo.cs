@@ -37,8 +37,6 @@ namespace LoyaltySoftware.Models
         [Display(Name = "Total Points")]
         public int total_points { get; set; }
 
-
-
         public static bool CheckUserId(int userInputId)
         {
 
@@ -47,8 +45,8 @@ namespace LoyaltySoftware.Models
             using (SqlCommand command = new SqlCommand())
             {
 
-                DBConnection dbstring = new DBConnection();      //creating an object from the class
-                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                DBConnection dbstring = new DBConnection();
+                string DbConnection = dbstring.DatabaseString();
                 SqlConnection conn = new SqlConnection(DbConnection);
                 conn.Open();
 
@@ -61,7 +59,7 @@ namespace LoyaltySoftware.Models
 
                 while (reader.Read())
                 {
-                    user_id = reader.GetInt32(0);
+                    user_id = reader.GetInt32(1);
                 }
 
                 if (user_id.Equals(userInputId))
@@ -74,10 +72,6 @@ namespace LoyaltySoftware.Models
                 }
 
             }
-
         }
-
- 
-
     }
 }

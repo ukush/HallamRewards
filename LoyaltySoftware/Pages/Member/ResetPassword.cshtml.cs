@@ -13,6 +13,7 @@ namespace LoyaltySoftware.Pages.Member
     public class ResetPasswordModel : PageModel
     {
 
+
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
 
@@ -31,8 +32,8 @@ namespace LoyaltySoftware.Pages.Member
         public IActionResult OnPost()
         {
 
-            DBConnection dbstring = new DBConnection();      //creating an object from the class
-            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
@@ -43,7 +44,7 @@ namespace LoyaltySoftware.Pages.Member
                 command.CommandText = @"UPDATE UserAccount SET password = @newPw WHERE user_id = @UID";
 
 
-                command.Parameters.AddWithValue("@UID", UserRecord.user_id); 
+                command.Parameters.AddWithValue("@UID", UserAccountRecord.user_id); 
                 command.Parameters.AddWithValue("@NewPw", UserAccountRecord.password);
 
 

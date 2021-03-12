@@ -8,24 +8,30 @@
 <h2>Personal Details</h2>
 <div>
     <table class="table table-active">
+
         <tr>
             <td>@Html.DisplayNameFor(model => model.UserRec[0].user_id)</td>
             <td>@Model.UserRec[0].user_id</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserRec[1].first_name)</td>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].first_name)</td>
+            <td>@Model.UserRec[0].first_name</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserRec[2].last_name)</td>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].last_name)</td>
+            <td>@Model.UserRec[0].last_name</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserRec[3].dob)</td>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].dob)</td>
+            <td>@Model.UserRec[0].dob</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserRec[4].telephone)</td>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].telephone)</td>
+            <td>@Model.UserRec[0].telephone</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserRec[5].email)</td>
+            <td>@Html.DisplayNameFor(model => model.UserRec[0].email)</td>
+            <td>@Model.UserRec[0].email</td>
         </tr>
     </table>
 </div>
@@ -37,15 +43,13 @@
 <div>
     <table class="table table-active">
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserAccountRec[1].username)</td>
+            <td>@Html.DisplayNameFor(model => model.UserAccountRec[0].username)</td>
+            <td>@Model.UserAccountRec[0].username</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.UserAccountRec[2].password)</td>
+            <td>@Html.DisplayNameFor(model => model.UserAccountRec[0].password)</td>
+            <td>@Model.UserAccountRec[0].password</td>
         </tr>
     </table>
 </div>
-
-
-
-
 

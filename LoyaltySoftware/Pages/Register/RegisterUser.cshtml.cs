@@ -64,6 +64,7 @@ namespace LoyaltySoftware.Pages.Register
             }
 
 
+            conn.Close();
             return RedirectToPage("/Login/UserLogin");
         }
 

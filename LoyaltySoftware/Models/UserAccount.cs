@@ -20,9 +20,14 @@ namespace LoyaltySoftware.Models
         [Required]
         [Display(Name = "Password")]
         public string password { get; set; }
+        [Required]
+        [Display(Name = "Status")]
         public string status { get; set; }
-
+        [Required]
+        [Display(Name = "User Role")]
         public string user_role { get; set; }
+
+        public string user_id { get; set; }
 
         static string[] UserRoles = new string[] { "member", "admin" };
         static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
@@ -65,8 +70,8 @@ namespace LoyaltySoftware.Models
 
             using (SqlCommand command = new SqlCommand())
             {
-                DBConnection dbstring = new DBConnection();      //creating an object from the class
-                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                DBConnection dbstring = new DBConnection();     
+                string DbConnection = dbstring.DatabaseString();
                 SqlConnection conn = new SqlConnection(DbConnection);
                 conn.Open();
 
@@ -157,6 +162,10 @@ namespace LoyaltySoftware.Models
 
             }
         }
+
+
+
+     
 
 
     }
