@@ -43,6 +43,7 @@ namespace LoyaltySoftware.Pages.Register
                 command.Parameters.AddWithValue("@dob", UserRecord.dob);
                 command.Parameters.AddWithValue("@tphone", UserRecord.telephone);
                 command.Parameters.AddWithValue("@email", UserRecord.email);
+                command.Parameters.AddWithValue("@points", 0);  // set points to 0 by default
 
                 command.ExecuteNonQuery();
 
