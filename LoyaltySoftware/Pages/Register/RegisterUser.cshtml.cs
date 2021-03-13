@@ -44,19 +44,20 @@ namespace LoyaltySoftware.Pages.Register
                 command.Parameters.AddWithValue("@tphone", UserRecord.telephone);
                 command.Parameters.AddWithValue("@email", UserRecord.email);
 
-             
+                command.ExecuteNonQuery();
 
                 // insert username/password into useraccount table
                 // status, role, user_id are not user input --> status is active, role is member by default.
 
-         
 
-                command.CommandText = @"INSERT INTO UserAccount (username, password, status, user_role) VALUES (@uname, @pword, @sts, @urole)";
+
+                command.CommandText = @"INSERT INTO UserAccount (username, password, status, user_role, user_id) VALUES (@uname, @pword, @sts, @urole, @UID)";
 
                 command.Parameters.AddWithValue("@uname", UserAccountRecord.username);
                 command.Parameters.AddWithValue("@pword", UserAccountRecord.password);
                 command.Parameters.AddWithValue("@sts", "active"); // set to "active" by default
                 command.Parameters.AddWithValue("@urole", "member"); // set to "member" by default
+                command.Parameters.AddWithValue("@UID", UserRecord.user_id); // add user id into the useraccount table
 
 
 
