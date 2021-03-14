@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Rewards\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
