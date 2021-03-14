@@ -103,6 +103,7 @@ body {
 
 .heading{
     align-items: center;
+    text-align: center;
 }
 
 .col-1{
@@ -118,3 +119,11 @@ body {
 .product img{
     width: 100%;
 }
+
+.small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
