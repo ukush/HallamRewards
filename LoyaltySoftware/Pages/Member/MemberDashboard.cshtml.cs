@@ -14,12 +14,13 @@ namespace LoyaltySoftware.Pages.Login
     public class MemberDashboardModel : PageModel
     {
 
+
+
         [BindProperty]
-        public Userdbo UserRecord { get; set; }
+        public Userdbo UserRec { get; set; }
 
 
         public string Username;
-
         public const string SessionKeyName1 = "username";
 
         public string SessionID;
@@ -27,6 +28,13 @@ namespace LoyaltySoftware.Pages.Login
 
         public IActionResult OnGet()
         {
+
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
+            SqlConnection conn = new SqlConnection(DbConnection);
+            conn.Open();
+
+
             Username = HttpContext.Session.GetString(SessionKeyName1);
             SessionID = HttpContext.Session.GetString(SessionKeyName3);
 
@@ -34,8 +42,9 @@ namespace LoyaltySoftware.Pages.Login
             {
                 return RedirectToPage("/Login/UserLogin");
             }
-            return Page();
 
+
+            return Page();
         }
     }
 }

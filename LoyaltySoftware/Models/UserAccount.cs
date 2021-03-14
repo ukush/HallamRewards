@@ -22,10 +22,10 @@ namespace LoyaltySoftware.Models
         public string password { get; set; }
         [Required]
         [Display(Name = "Status")]
-        public string status { get; set; }
+        public static string status { get; set; }
         [Required]
         [Display(Name = "User Role")]
-        public string user_role { get; set; }
+        public static string user_role { get; set; }
 
         public string user_id { get; set; }
 
@@ -36,9 +36,8 @@ namespace LoyaltySoftware.Models
        
 
 
-            public static string checkStatus(string username)
+        public static string checkStatus(string username)
         {
-            string userStatus = "";
 
             using (SqlCommand command = new SqlCommand())
             {
@@ -56,17 +55,16 @@ namespace LoyaltySoftware.Models
 
                 while (reader.Read())
                 {
-                    userStatus = reader.GetString(1);
+                    status = reader.GetString(1);
                 }
 
-                return userStatus;
+                return status;
             }
         }
 
 
         public static string checkRole(string username)
         {
-            string userRole = "";
 
             using (SqlCommand command = new SqlCommand())
             {
@@ -84,10 +82,10 @@ namespace LoyaltySoftware.Models
 
                 while (reader.Read())
                 {
-                    userRole = reader.GetString(1);
+                    user_role = reader.GetString(1);
                 }
 
-                return userRole;
+                return user_role;
             }
 
         }
