@@ -13,7 +13,7 @@ namespace LoyaltySoftware.Models
     
     public class UserAccount
     {
-        public int Id { get; set; }
+        public int account_id { get; set; }
         [Required]
         [Display(Name = "User Name")]
         public string username { get; set; }
@@ -26,8 +26,6 @@ namespace LoyaltySoftware.Models
         [Required]
         [Display(Name = "User Role")]
         public static string user_role { get; set; }
-
-        public string user_id { get; set; }
 
         static string[] UserRoles = new string[] { "member", "admin" };
         static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
