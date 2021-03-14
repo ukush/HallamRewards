@@ -36,13 +36,13 @@ namespace LoyaltySoftware.Pages.Register
             {
                 Message1 = "Please fill in your personal details!";
             }
-            if (string.IsNullOrEmpty(UserAccountRecord.username) && string.IsNullOrEmpty(UserAccountRecord.password)) // if user does not enter their username
+            if (string.IsNullOrEmpty(UserAccountRecord.username) && string.IsNullOrEmpty(UserAccountRecord.password)) // if user does not enter their username and password
             {
                 Message2 = "Please enter a username!";
                 Message3 = "Please enter a password!";
                 return Page();
             }
-            else if (string.IsNullOrEmpty(UserAccountRecord.username)) // if user does not enter their password
+            else if (string.IsNullOrEmpty(UserAccountRecord.username)) // if user does not enter their username
             {
                 Message2 = "Please enter a username!";
                 return Page();
