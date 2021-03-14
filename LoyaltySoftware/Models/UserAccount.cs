@@ -88,10 +88,9 @@ namespace LoyaltySoftware.Models
 
         }
 
-
         public static bool checkIfUsernameExists(string inputUsername)
         {
-            string username="";
+            string username = "";
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -159,9 +158,37 @@ namespace LoyaltySoftware.Models
             }
         }
 
+        public static int findAccountID(string inputUsername)
+        {
+            int accountID = -1;
+
+            using (SqlCommand command = new SqlCommand())
+            {
+                DBConnection dbstring = new DBConnection();      //creating an object from the class
+                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT account_id FROM UserAccount WHERE username = @UName";
+
+                command.Parameters.AddWithValue("@UName", inputUsername);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    accountID = reader.GetInt32(0);
+                }
+
+                return accountID;
+
+            }
+        }
 
 
-     
+
+
 
 
     }

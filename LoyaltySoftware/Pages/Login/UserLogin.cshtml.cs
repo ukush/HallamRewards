@@ -24,7 +24,6 @@ namespace LoyaltySoftware.Pages.Login
         public string Message1 { get; set; }
         public string Message2 { get; set; }
 
-        public string Message3 { get; set; }
         public string SessionID;
 
         public int LoginAttempts { get; set; }
@@ -72,13 +71,12 @@ namespace LoyaltySoftware.Pages.Login
                         SessionID = HttpContext.Session.Id;
                         HttpContext.Session.SetString("sessionID", SessionID);
                         HttpContext.Session.SetString("username", UserAccount.username);
-                        HttpContext.Session.SetString("password", UserAccount.password);
 
-                        if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))
+                    if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))
                         {
                             Message2 = "Password does not match!";
                             return Page();
-                    }
+                        }
                         else
                         {
                             if (UserAccount.checkRole(UserAccount.username) == "member")
@@ -99,6 +97,7 @@ namespace LoyaltySoftware.Pages.Login
                 }
             
         }
+
     }
 }
 
