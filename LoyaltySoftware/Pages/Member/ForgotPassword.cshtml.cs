@@ -16,7 +16,9 @@ namespace LoyaltySoftware.Pages.Member
         public Userdbo UserRecord { get; set; }
 
         [BindProperty]
-        public Userdbo UserAccountRecord { get; set; }
+        public UserAccount UserAccountRecord { get; set; }
+
+        public static string uname { get; set; }
 
 
         public string Message { get; set; }
@@ -32,23 +34,23 @@ namespace LoyaltySoftware.Pages.Member
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
 
-            Console.WriteLine(UserRecord.user_id);
+            // check username exists
 
-
-            if (Userdbo.CheckUserId(UserRecord.user_id))
+            if (UserAccount.checkIfUsernameExists(UserAccountRecord.username))
             {
-
-                UserRecord.user_id = UserRecord.user_id;
-                conn.Close();
+                // if username exists then redirect to reset passsword
+                uname = UserAccountRecord.username;
                 return RedirectToPage("/Member/ResetPassword");
             }
             else
             {
-                Message = "That ID is not recognised.";
+                Message = "That username does not exist";
+                return Page();
             }
-            conn.Close();
-            return Page();
-            }
+
+        }
     }
 
 }
+
+    
