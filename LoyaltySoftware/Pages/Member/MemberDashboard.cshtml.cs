@@ -14,17 +14,10 @@ namespace LoyaltySoftware.Pages.Login
     public class MemberDashboardModel : PageModel
     {
 
-
-
-        [BindProperty]
-        public Userdbo UserRec { get; set; }
-
-
         public string Username;
         public const string SessionKeyName1 = "username";
-
         public string SessionID;
-        public const string SessionKeyName3 = "sessionID";
+        public const string SessionKeyName2 = "sessionID";
 
         public IActionResult OnGet()
         {
@@ -36,7 +29,8 @@ namespace LoyaltySoftware.Pages.Login
 
 
             Username = HttpContext.Session.GetString(SessionKeyName1);
-            SessionID = HttpContext.Session.GetString(SessionKeyName3);
+            SessionID = HttpContext.Session.GetString(SessionKeyName2);
+
 
             if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {

@@ -44,7 +44,7 @@ namespace LoyaltySoftware.Pages.Member
                 command.CommandText = @"UPDATE UserAccount SET password = @newPw WHERE user_id = @UID";
 
 
-                command.Parameters.AddWithValue("@UID", UserAccountRecord.user_id); 
+                command.Parameters.AddWithValue("@UID", UserAccountRecord.account_id); 
                 command.Parameters.AddWithValue("@NewPw", UserAccountRecord.password);
 
 
