@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LoyaltySoftware.Pages.Reward
 {
-    public class ShopModel : PageModel
+    public class RewardModel : PageModel
     {
         public void OnGet()
         {
