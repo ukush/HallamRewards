@@ -26,7 +26,7 @@ namespace LoyaltySoftware.Pages.Login
 
         public string SessionID;
 
-     
+
 
 
 
@@ -38,65 +38,100 @@ namespace LoyaltySoftware.Pages.Login
         public IActionResult OnPost()
         {
 
-                
 
 
-                DBConnection dbstring = new DBConnection(); 
-                string DbConnection = dbstring.DatabaseString();
-                Console.WriteLine(DbConnection);
-                SqlConnection conn = new SqlConnection(DbConnection);
-                conn.Open();
 
-                Console.WriteLine(UserAccount.username);
-                Console.WriteLine(UserAccount.password);
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+            Console.WriteLine(DbConnection);
+            SqlConnection conn = new SqlConnection(DbConnection);
+            conn.Open();
+
+            Console.WriteLine(UserAccount.username);
+            Console.WriteLine(UserAccount.password);
 
 
-                if (string.IsNullOrEmpty(UserAccount.username))
+            //1. check if the fields are empty
+            //2. check if the username exists
+            //3. check if the status is active
+            //4. check if the passowrd is correct
+            //5. check if the role is admin or member
+
+
+
+            if (string.IsNullOrEmpty(UserAccount.username)) // check if username field is empty
+            {
+                Message1 = "Please enter a username!";
+                return Page();
+            }
+            else if (string.IsNullOrEmpty(UserAccount.password)) // check if password field is empty
+            {
+                Message2 = "Please enter a password!";
+                return Page();
+
+            }
+
+            else // if the username is not empty
+            {
+                //check if the username is valid
+                if (UserAccount.checkIfUsernameExists(UserAccount.username)) // check if the username entered exists
                 {
-                    Message1 = "Please enter a username!";
-                    return Page();
-                }
-                else if (string.IsNullOrEmpty(UserAccount.password))
-                {
-                    Message2 = "Please enter a password!";
-                    return Page();
-                }
-                else
-                {
 
-                    if (UserAccount.checkIfUsernameExists(UserAccount.username))
+                    //if the username exists...
+
+                    SessionID = HttpContext.Session.Id;
+                    HttpContext.Session.SetString("sessionID", SessionID);
+                    HttpContext.Session.SetString("username", UserAccount.username);
+
+                    // now check the status
+
+                    if (UserAccount.checkStatus(UserAccount.username) == "suspended") //if the status is suspended
                     {
-                        SessionID = HttpContext.Session.Id;
-                        HttpContext.Session.SetString("sessionID", SessionID);
-                        HttpContext.Session.SetString("username", UserAccount.username);
-
-                    if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))
-                        {
-                            Message2 = "Password does not match!";
-                            return Page();
-                        }
-                        else
-                        {
-                            if (UserAccount.checkRole(UserAccount.username) == "member")
-                            {
-                                return RedirectToPage("/Member/MemberDashboard");
-                            }
-                            else
-                            {
-                                return RedirectToPage("/Admin/AdminDashboard");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Message1 = "Username does not exist!";
+                        Message2 = "Your account has been suspended.";
                         return Page();
                     }
+                    else if (UserAccount.checkStatus(UserAccount.username) == "revoked") // if the status is revoked
+                    {
+                        Message2 = "Your account has been revoked.";
+                        return Page();
+                    }
+                    else //if the status is active
+                    {
+                        //check the password field
+
+                        if  (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))  // check that the passowrd is correct
+                            {
+                                Message2 = "Password does not match!"; // if the password does not match display message
+                                return Page();
+                            }
+                            else // the password does match
+                            {
+                                //check the role
+                                if (UserAccount.checkRole(UserAccount.username) == "member")
+                                {
+                                    return RedirectToPage("/Member/MemberDashboard");
+                                }
+                                else
+                                {
+                                    return RedirectToPage("/Admin/AdminDashboard");
+                                }
+
+                            }
+
+                        }
+
+                    }                
+                else // if the username does not exist
+                {
+                    // display error message
+                    Message1 = "Username does not exist!";
+                    return Page();
                 }
-            
+
+            }
+
         }
 
     }
+
 }
-
-

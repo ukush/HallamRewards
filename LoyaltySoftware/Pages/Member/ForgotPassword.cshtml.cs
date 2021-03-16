@@ -12,8 +12,6 @@ namespace LoyaltySoftware.Pages.Member
 {
     public class ForgotPasswordModel : PageModel
     {
-        [BindProperty]
-        public Userdbo UserRecord { get; set; }
 
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
