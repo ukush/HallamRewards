@@ -26,9 +26,7 @@ namespace LoyaltySoftware.Pages.Login
 
         public string SessionID;
 
-        public int LoginAttempts { get; set; }
-
-        public int currentattemps;
+     
 
 
 
@@ -40,11 +38,11 @@ namespace LoyaltySoftware.Pages.Login
         public IActionResult OnPost()
         {
 
-                // need to pass on user_id to next page
+                
 
 
-                DBConnection dbstring = new DBConnection(); //creating an object from the class
-                string DbConnection = dbstring.DatabaseString(); //calling the method from the class
+                DBConnection dbstring = new DBConnection(); 
+                string DbConnection = dbstring.DatabaseString();
                 Console.WriteLine(DbConnection);
                 SqlConnection conn = new SqlConnection(DbConnection);
                 conn.Open();
