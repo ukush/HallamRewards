@@ -27,8 +27,8 @@ namespace LoyaltySoftware.Models
         [Display(Name = "User Role")]
         public static string user_role { get; set; }
 
-        static string[] UserRoles = new string[] { "member", "admin" };
-        static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
+        public static string[] UserRoles = new string[] { "member", "admin" };
+        public static string[] UserStatuses = new string[] { "active", "suspended", "revoked" };
 
 
        
