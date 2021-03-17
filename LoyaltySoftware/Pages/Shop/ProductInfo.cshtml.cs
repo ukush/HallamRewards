@@ -70,7 +70,14 @@ namespace LoyaltySoftware.Pages.Shop
             conn.Open();
 
             Username = HttpContext.Session.GetString(SessionKeyName1);
-            AccountID = UserAccount.findAccountID(Username);
+            if (string.IsNullOrEmpty(Username))  // if user has not signed in yet
+            {
+                return RedirectToPage("/Login/UserLogin");
+            }
+            else
+            {
+                AccountID = UserAccount.findAccountID(Username);
+            }
 
             using (SqlCommand command = new SqlCommand())
             {
