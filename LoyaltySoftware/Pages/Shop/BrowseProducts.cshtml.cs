@@ -35,7 +35,7 @@ namespace LoyaltySoftware.Pages.Shop
                     Product record = new Product(); //a local var to hold a record temporarily
                     record.productId = reader.GetInt32(0); //getting the first field from the table
                     record.productName = reader.GetString(1); //getting the second field from the table
-                    record.productPrice = Convert.ToDouble(reader.GetString(2)); //getting the third field from the table
+                    record.productPrice = (double)reader.GetDecimal(2); //getting the third field from the table
                     record.productImageSrc = reader.GetString(3);
 
                     ProductRec.Add(record); //adding the single record into the list
