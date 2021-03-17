@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LoyaltySoftware.Models;
 using System;
+using LoyaltySoftware.UnitTests;
 
 namespace UnitTestLoyaltySoftware
 {
@@ -12,7 +13,7 @@ namespace UnitTestLoyaltySoftware
         {
             string username = "jsmith1";
             string roleExpected = "member";
-            string roleActual = UserAccount.checkRole(username);
+            string roleActual = LoyaltySoftware.UnitTests.UserAccount.checkRole(username);
             Assert.AreEqual(roleExpected, roleActual);
         }
 
@@ -22,7 +23,7 @@ namespace UnitTestLoyaltySoftware
             string username = "jsmith1";
             string userStatusExpected = "active";
             string userStatusActual;
-            userStatusActual = UserAccount.checkStatus(username);
+            userStatusActual = LoyaltySoftware.UnitTests.UserAccount.checkStatus(username);
             Assert.AreEqual(userStatusActual, userStatusExpected);
         }
 
@@ -30,16 +31,24 @@ namespace UnitTestLoyaltySoftware
         public void TestUsername()
         {
             string username = "hsmith3";
-            Assert.IsTrue(UserAccount.checkIfUsernameExists(username));
+            Assert.IsTrue(LoyaltySoftware.UnitTests.UserAccount.checkIfUsernameExists(username));
         }
         [TestMethod]
         public void TestPassword()
         {
             string username = "jsmith1";
             string password = "12345";
-            Assert.IsTrue(UserAccount.checkPassword(username, password));
+            Assert.IsTrue(LoyaltySoftware.UnitTests.UserAccount.checkPassword(username, password));
         }
-        
+        [TestMethod]
+        public void TestAccountID()
+        {
+            string username = "jsmith1";
+            int accountIDExpected = 1028;
+            int accountIDActual = LoyaltySoftware.UnitTests.UserAccount.findAccountID(username);
+            Assert.AreEqual(accountIDExpected, accountIDActual);
+        }
+
 
     }
 }
