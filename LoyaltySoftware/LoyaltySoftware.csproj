@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\NewFolder1\**" />
+    <Content Remove="Pages\NewFolder1\**" />
+    <EmbeddedResource Remove="Pages\NewFolder1\**" />
+    <None Remove="Pages\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Pages\Reward\rewards.cshtml.cs" />
   </ItemGroup>
 
@@ -33,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\NewFolder1\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
