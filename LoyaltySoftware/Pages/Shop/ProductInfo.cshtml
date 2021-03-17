@@ -2,3 +2,37 @@
 @model LoyaltySoftware.Pages.Shop.ProductInfoModel
 @{
 }
+<h1>@Model.ProductRec.productName</h1>
+<br />
+<h2>Product Details</h2>
+
+<div>
+ <img class="product-image" src="@Url.Content(@Model.ProductRec.productImageSrc)" alt="sideImage">
+</div>
+
+<div>
+ <table class="table table-active">
+
+  <tr>
+   <td>@Html.DisplayNameFor(model => model.ProductRec.productName)</td>
+   <td>@Model.ProductRec.productName</td>
+  </tr>
+  <tr>
+   <td>@Html.DisplayNameFor(model => model.ProductRec.productPrice)</td>
+   <td>£@Model.ProductRec.productPrice</td>
+  </tr>
+  <tr>
+   <td>@Html.DisplayNameFor(model => model.ProductRec.productDescription)</td>
+   <td>@Model.ProductRec.productDescription</td>
+  </tr>
+  <tr>
+
+ </table>
+</div>
+
+<div>
+ <div><a asp-page="/Shop/BrowseProducts" asp-route-id="" class="btn">Purchase</a></div>
+</div>
+
+<br />
+<p><a asp-page="/Shop/BrowseProducts">Back</a></p>

@@ -35,8 +35,8 @@
   <div class="product">
    <div><img class="product-image" src="@Url.Content(product.productImageSrc)" alt="sideImage"></div>
    <div>@product.productName</div>
-   <div>@product.productPrice</div>
-   <div><button type="button" class="btn">Get It Now!</button></div>
+   <div>£@product.productPrice</div>
+   <div><a asp-page="/Shop/ProductInfo" asp-route-id="@product.productId" class="btn">View Product</a></div>
   </div>
     }
   </div>

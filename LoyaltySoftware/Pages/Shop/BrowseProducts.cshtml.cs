@@ -37,7 +37,6 @@ namespace LoyaltySoftware.Pages.Shop
                     record.productName = reader.GetString(1); //getting the second field from the table
                     record.productPrice = Convert.ToDouble(reader.GetString(2)); //getting the third field from the table
                     record.productImageSrc = reader.GetString(3);
-                    record.productDescription = reader.GetString(4);
 
                     ProductRec.Add(record); //adding the single record into the list
                 }
