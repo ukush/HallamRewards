@@ -30,9 +30,10 @@
  </table>
 </div>
 
-<div>
- <div><a asp-page="/Shop/BrowseProducts" asp-route-id="" class="btn">Purchase</a></div>
-</div>
+<form method="post">
+ <input type="hidden" asp-for="pointsEarned" />
+ <input type="submit" value="Purchase" class="btn" />
+</form>
 
 <br />
 <p><a asp-page="/Shop/BrowseProducts">Back</a></p>
