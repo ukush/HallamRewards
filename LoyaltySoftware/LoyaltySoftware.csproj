@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\RewardFolder\rewards.cshtml.cs" />
+    <Compile Remove="Pages\Reward\rewards.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\RewardFolder\rewards.cshtml" />
+    <Content Remove="Pages\Reward\rewards.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
