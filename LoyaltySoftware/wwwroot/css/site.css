@@ -142,3 +142,17 @@ body {
   padding: 5px;
 }
 
+.header2{
+    background: radial-gradient(#fff, #ffe4b5);
+}
+
+.bigOffer{
+    background: radial-gradient(#fff, #fffacd);
+}
+
+.btn{
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+
