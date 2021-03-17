@@ -62,7 +62,6 @@ namespace LoyaltySoftware.Pages.Member
             DBConnection dbstring = new DBConnection();
             string DbConnection = dbstring.DatabaseString();
             SqlConnection conn = new SqlConnection(DbConnection);
-            conn.Open();
 
             using (SqlCommand command = new SqlCommand())
             {
