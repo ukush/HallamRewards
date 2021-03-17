@@ -13,11 +13,12 @@ namespace LoyaltySoftware.Pages.Login
 {
     public class MemberDashboardModel : PageModel
     {
-
         public string Username;
         public const string SessionKeyName1 = "username";
         public string SessionID;
         public const string SessionKeyName2 = "sessionID";
+        public int AccountID;
+        public int TotalPoints;
 
         public IActionResult OnGet()
         {
@@ -31,6 +32,8 @@ namespace LoyaltySoftware.Pages.Login
             Username = HttpContext.Session.GetString(SessionKeyName1);
             SessionID = HttpContext.Session.GetString(SessionKeyName2);
 
+            AccountID = UserAccount.findAccountID(Username);
+            TotalPoints = Userdbo.getTotalPoints(AccountID);
 
             if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {
