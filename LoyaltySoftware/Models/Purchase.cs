@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LoyaltySoftware.Models
 {
-    public class Purcahse
+    public class Purchase
     {
 
         public int Id { get; set; }
