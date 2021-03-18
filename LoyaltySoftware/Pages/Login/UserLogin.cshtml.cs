@@ -26,6 +26,10 @@ namespace LoyaltySoftware.Pages.Login
 
         public string SessionID;
 
+        public static bool ActiveSession { get; set; }
+
+
+
 
 
 
@@ -39,6 +43,11 @@ namespace LoyaltySoftware.Pages.Login
         {
 
 
+            if (ActiveSession == true)
+            {
+                Message2 = "You are already logged in, please logout first";
+                return Page();
+            }
 
 
             DBConnection dbstring = new DBConnection();
@@ -109,10 +118,12 @@ namespace LoyaltySoftware.Pages.Login
                                 //check the role
                                 if (UserAccount.checkRole(UserAccount.username) == "member")
                                 {
+                                    ActiveSession = true;
                                     return RedirectToPage("/Member/MemberDashboard");
                                 }
                                 else
                                 {
+                                    ActiveSession = true;
                                     return RedirectToPage("/Admin/AdminDashboard");
                                 }
 
