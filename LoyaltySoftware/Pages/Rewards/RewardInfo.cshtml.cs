@@ -77,7 +77,7 @@ namespace LoyaltySoftware.Pages.Rewards
             }
             conn.Close();
 
-            return RedirectToPage("/Rewards/BrowseRewards");
+            return RedirectToPage("/Member/MemberDashboard");
         }
 
         public Reward getReward(int? id)
