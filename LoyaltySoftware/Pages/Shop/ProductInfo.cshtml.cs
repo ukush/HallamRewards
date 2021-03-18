@@ -22,6 +22,8 @@ namespace LoyaltySoftware.Pages.Shop
         public string Username;
         public int AccountID;
         public const string SessionKeyName1 = "username";
+        public string SessionID;
+        public const string SessionKeyName2 = "sessionID";
         public IActionResult OnGet(int? id)
         {
 
@@ -63,33 +65,45 @@ namespace LoyaltySoftware.Pages.Shop
 
         public IActionResult OnPost()
         {
-            UserRec = new Userdbo();
-            DBConnection dbstring = new DBConnection();
-            string DbConnection = dbstring.DatabaseString();
-            SqlConnection conn = new SqlConnection(DbConnection);
-            conn.Open();
 
             Username = HttpContext.Session.GetString(SessionKeyName1);
-            AccountID = UserAccount.findAccountID(Username);
+            SessionID = HttpContext.Session.GetString(SessionKeyName2);
 
-            using (SqlCommand command = new SqlCommand())
+            if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {
-                command.Connection = conn;
-
-                UserRec.total_points = Userdbo.getTotalPoints(AccountID);
-
-                command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
-
-                UserRec.total_points += pointsEarned; // add points earned to user's total points
-
-                command.Parameters.AddWithValue("@AID", AccountID);
-                command.Parameters.AddWithValue("@Pts", UserRec.total_points);
-
-                command.ExecuteNonQuery();
+                return RedirectToPage("/Login/UserLogin");
             }
-            conn.Close();
+            else
+            {
 
-            return RedirectToPage("/Shop/BrowseProducts");
+                UserRec = new Userdbo();
+                DBConnection dbstring = new DBConnection();
+                string DbConnection = dbstring.DatabaseString();
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                Username = HttpContext.Session.GetString(SessionKeyName1);
+                AccountID = UserAccount.findAccountID(Username);
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = conn;
+
+                    UserRec.total_points = Userdbo.getTotalPoints(AccountID);
+
+                    command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
+
+                    UserRec.total_points += pointsEarned; // add points earned to user's total points
+
+                    command.Parameters.AddWithValue("@AID", AccountID);
+                    command.Parameters.AddWithValue("@Pts", UserRec.total_points);
+
+                    command.ExecuteNonQuery();
+                }
+                conn.Close();
+
+                return RedirectToPage("/Member/MemberDashboard");
+            }
         }
 
     }
