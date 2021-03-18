@@ -8,10 +8,14 @@ namespace LoyaltySoftware.Models
     public class Reward
     {
 
-        public int Id { get; set; }
+        [Display(Name = "Reward ID")]
         public int rewardId { get; set; }
+        [Display(Name = "Name")]
         public string rewardName { get; set; }
+        [Display(Name = "Points Required")]
         public int pointsToClaim { get; set; }
+        [Display(Name = "Reward Description")]
         public string rewardDescription { get; set; }
+        public string rewardImageSrc { get; set; }
     }
 }
