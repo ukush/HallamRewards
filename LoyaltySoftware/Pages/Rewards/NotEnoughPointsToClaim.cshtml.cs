@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LoyaltySoftware.Pages.Reward
+namespace LoyaltySoftware.Pages.Rewards
 {
-    public class RewardModel : PageModel
+    public class NotEnoughPointsToClaimModel : PageModel
     {
         public void OnGet()
         {
