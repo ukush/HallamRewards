@@ -26,6 +26,10 @@ namespace LoyaltySoftware.Pages.Login
 
         public string SessionID;
 
+        public static bool ActiveSession { get; set; }
+
+
+
 
 
 
@@ -39,6 +43,11 @@ namespace LoyaltySoftware.Pages.Login
         {
 
 
+            if (ActiveSession == true)
+            {
+                Message2 = "You are already logged in, please logout first";
+                return Page();
+            }
 
 
             DBConnection dbstring = new DBConnection();
@@ -99,28 +108,30 @@ namespace LoyaltySoftware.Pages.Login
                     {
                         //check the password field
 
-                        if  (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))  // check that the passowrd is correct
+                        if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))  // check that the passowrd is correct
+                        {
+                            Message2 = "Password does not match!"; // if the password does not match display message
+                            return Page();
+                        }
+                        else // the password does match
+                        {
+                            //check the role
+                            if (UserAccount.checkRole(UserAccount.username) == "member")
                             {
-                                Message2 = "Password does not match!"; // if the password does not match display message
-                                return Page();
+                                ActiveSession = true;
+                                return RedirectToPage("/Member/MemberDashboard");
                             }
-                            else // the password does match
+                            else
                             {
-                                //check the role
-                                if (UserAccount.checkRole(UserAccount.username) == "member")
-                                {
-                                    return RedirectToPage("/Member/MemberDashboard");
-                                }
-                                else
-                                {
-                                    return RedirectToPage("/Admin/AdminDashboard");
-                                }
-
+                                ActiveSession = true;
+                                return RedirectToPage("/Admin/AdminDashboard");
                             }
 
                         }
 
-                    }                
+                    }
+
+                }
                 else // if the username does not exist
                 {
                     // display error message

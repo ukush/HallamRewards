@@ -22,60 +22,19 @@ namespace LoyaltySoftware.Pages.Shop
         public string Username;
         public int AccountID;
         public const string SessionKeyName1 = "username";
+        public string SessionID;
+        public const string SessionKeyName2 = "sessionID";
         public IActionResult OnGet(int? id)
         {
-            ProductRec = new Product();
-            ProductRec = getProduct(id);
-            pointsEarned = calculatePointsEarned(ProductRec.productPrice);
-            return Page();
 
-        }
-
-        public IActionResult OnPost()
-        {
-            UserRec = new Userdbo();
-            DBConnection dbstring = new DBConnection();
-            string DbConnection = dbstring.DatabaseString();
-            SqlConnection conn = new SqlConnection(DbConnection);
-            conn.Open();
-
-            Username = HttpContext.Session.GetString(SessionKeyName1);
-            if (string.IsNullOrEmpty(Username))  // if user has not signed in yet
-            {
-                return RedirectToPage("/Login/UserLogin");
-            }
-            else
-            {
-                AccountID = UserAccount.findAccountID(Username);
-            }
-
-            using (SqlCommand command = new SqlCommand())
-            {
-                command.Connection = conn;
-
-                UserRec.total_points = Userdbo.getTotalPoints(AccountID);
-
-                command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
-
-                UserRec.total_points += pointsEarned; // add points earned to user's total points
-
-                command.Parameters.AddWithValue("@AID", AccountID);
-                command.Parameters.AddWithValue("@Pts", UserRec.total_points);
-
-                command.ExecuteNonQuery();
-            }
-            conn.Close();
-
-            return RedirectToPage("/Shop/BrowseProducts");
-        }
-
-        public Product getProduct(int? id)
-        {
             DBConnection dbstring = new DBConnection();
             string DbConnection = dbstring.DatabaseString();
             Console.WriteLine(DbConnection);
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
+
+
+            ProductRec = new Product();
 
             using (SqlCommand command = new SqlCommand())
             {
@@ -98,12 +57,53 @@ namespace LoyaltySoftware.Pages.Shop
 
             }
 
-            return ProductRec;
+            pointsEarned = (int)Math.Round(ProductRec.productPrice, 0);  // price of the product is converted to points where is it is rounded to the nearest integer
+
+            return Page();
+
         }
 
-        public int calculatePointsEarned(double price)
+        public IActionResult OnPost()
         {
-            return (int)Math.Round(ProductRec.productPrice, 0);  // price of the product is converted to points where is it is rounded to the nearest integer
+
+            Username = HttpContext.Session.GetString(SessionKeyName1);
+            SessionID = HttpContext.Session.GetString(SessionKeyName2);
+
+            if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
+            {
+                return RedirectToPage("/Login/UserLogin");
+            }
+            else
+            {
+
+                UserRec = new Userdbo();
+                DBConnection dbstring = new DBConnection();
+                string DbConnection = dbstring.DatabaseString();
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                Username = HttpContext.Session.GetString(SessionKeyName1);
+                AccountID = UserAccount.findAccountID(Username);
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = conn;
+
+                    UserRec.total_points = Userdbo.getTotalPoints(AccountID);
+
+                    command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
+
+                    UserRec.total_points += pointsEarned; // add points earned to user's total points
+
+                    command.Parameters.AddWithValue("@AID", AccountID);
+                    command.Parameters.AddWithValue("@Pts", UserRec.total_points);
+
+                    command.ExecuteNonQuery();
+                }
+                conn.Close();
+
+                return RedirectToPage("/Member/MemberDashboard");
+            }
         }
 
     }
