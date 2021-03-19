@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Pages\NewFolder1\**" />
+    <Compile Remove="wwwroot\images\**" />
     <Content Remove="Pages\NewFolder1\**" />
+    <Content Remove="wwwroot\images\**" />
     <EmbeddedResource Remove="Pages\NewFolder1\**" />
+    <EmbeddedResource Remove="wwwroot\images\**" />
     <None Remove="Pages\NewFolder1\**" />
+    <None Remove="wwwroot\images\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +33,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
