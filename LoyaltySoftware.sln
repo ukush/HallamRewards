@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestLoyaltySoftware", "UnitTestLoyaltySoftware\UnitTestLoyaltySoftware.csproj", "{EBDD548F-511E-438B-BD7F-72F44A8603A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestLoyaltySoftware", "UnitTestLoyaltySoftware\UnitTestLoyaltySoftware.csproj", "{B4D465F6-B78D-406A-968F-D2533D939BF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{03607BBE-B076-45B4-8B88-7A6A12931F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03607BBE-B076-45B4-8B88-7A6A12931F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03607BBE-B076-45B4-8B88-7A6A12931F00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBDD548F-511E-438B-BD7F-72F44A8603A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBDD548F-511E-438B-BD7F-72F44A8603A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBDD548F-511E-438B-BD7F-72F44A8603A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBDD548F-511E-438B-BD7F-72F44A8603A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D465F6-B78D-406A-968F-D2533D939BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D465F6-B78D-406A-968F-D2533D939BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D465F6-B78D-406A-968F-D2533D939BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D465F6-B78D-406A-968F-D2533D939BF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
