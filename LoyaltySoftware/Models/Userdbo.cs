@@ -74,31 +74,6 @@ namespace LoyaltySoftware.Models
             }
         }
 
-        public static int getTotalPoints(int accountID)
-        {
-            int totalPoints = 0;
-            using (SqlCommand command = new SqlCommand())
-            {
-
-                DBConnection dbstring = new DBConnection();
-                string DbConnection = dbstring.DatabaseString();
-                SqlConnection conn = new SqlConnection(DbConnection);
-                conn.Open();
-
-                command.Connection = conn;
-                command.CommandText = @"SELECT points FROM Userdbo WHERE account_id = @AID";
-
-                command.Parameters.AddWithValue("@AID", accountID);
-
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    totalPoints = reader.GetInt32(0);
-                }
-
-                return totalPoints;
-            }
-        }
+        
     }
 }
