@@ -33,7 +33,7 @@ namespace LoyaltySoftware.Pages.Login
             SessionID = HttpContext.Session.GetString(SessionKeyName2);
 
             AccountID = AccountMethods.findAccountID(Username);
-            TotalPoints = Userdbo.getTotalPoints(AccountID);
+            TotalPoints = AccountMethods.getTotalPoints(AccountID);
 
             if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {

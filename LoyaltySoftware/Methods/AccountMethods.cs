@@ -12,7 +12,9 @@ namespace LoyaltySoftware.Pages.Login
     public class AccountMethods
     {
         [BindProperty]
-        public UserAccount UserAccount { get; set; }
+        public static UserAccount UserAccount { get; set; }
+        [BindProperty]
+        public static Userdbo Userdbo { get; set; }
 
         public static string checkStatus(string username)
         {
@@ -69,7 +71,6 @@ namespace LoyaltySoftware.Pages.Login
 
         public static bool checkIfUsernameExists(string inputUsername)
         {
-            string username = "";
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -86,10 +87,10 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    username = reader.GetString(0);
+                    UserAccount.username = reader.GetString(0);
                 }
 
-                if (!string.IsNullOrEmpty(username))
+                if (!string.IsNullOrEmpty(UserAccount.username))
                 {
                     return true;
                 }
@@ -104,8 +105,6 @@ namespace LoyaltySoftware.Pages.Login
 
         public static bool checkPassword(string inputUsername, string inputPassword)
         {
-            string password = "";
-
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -122,10 +121,10 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    password = reader.GetString(1);
+                    UserAccount.password = reader.GetString(1);
                 }
 
-                if (inputPassword != password)
+                if (inputPassword != UserAccount.password)
                 {
                     return false;
                 }
@@ -139,7 +138,6 @@ namespace LoyaltySoftware.Pages.Login
 
         public static int findAccountID(string inputUsername)
         {
-            int accountID = -1;
 
             using (SqlCommand command = new SqlCommand())
             {
@@ -157,11 +155,37 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    accountID = reader.GetInt32(0);
+                    UserAccount.account_id = reader.GetInt32(0);
                 }
 
-                return accountID;
+                return UserAccount.account_id;
 
+            }
+        }
+
+        public static int getTotalPoints(int accountID)
+        {
+            using (SqlCommand command = new SqlCommand())
+            {
+
+                DBConnection dbstring = new DBConnection();
+                string DbConnection = dbstring.DatabaseString();
+                SqlConnection conn = new SqlConnection(DbConnection);
+                conn.Open();
+
+                command.Connection = conn;
+                command.CommandText = @"SELECT points FROM Userdbo WHERE account_id = @AID";
+
+                command.Parameters.AddWithValue("@AID", accountID);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Userdbo.total_points = reader.GetInt32(0);
+                }
+
+                return Userdbo.total_points;
             }
         }
     }

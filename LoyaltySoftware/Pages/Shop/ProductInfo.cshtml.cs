@@ -60,7 +60,7 @@ namespace LoyaltySoftware.Pages.Shop
                 {
                     command.Connection = conn;
 
-                    UserRec.total_points = Userdbo.getTotalPoints(AccountID);
+                    UserRec.total_points = AccountMethods.getTotalPoints(AccountID);
 
                     command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
 
