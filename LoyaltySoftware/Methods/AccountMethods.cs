@@ -12,9 +12,9 @@ namespace LoyaltySoftware.Pages.Login
     public class AccountMethods
     {
         [BindProperty]
-        public static UserAccount UserAccount { get; set; }
+        public static UserAccount UserAccountRec { get; set; }
         [BindProperty]
-        public static Userdbo Userdbo { get; set; }
+        public static Userdbo UserdboRec { get; set; }
 
         public static string checkStatus(string username)
         {
@@ -71,6 +71,7 @@ namespace LoyaltySoftware.Pages.Login
 
         public static bool checkIfUsernameExists(string inputUsername)
         {
+            UserAccountRec = new UserAccount();
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -87,10 +88,10 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    UserAccount.username = reader.GetString(0);
+                    UserAccountRec.username = reader.GetString(0);
                 }
 
-                if (!string.IsNullOrEmpty(UserAccount.username))
+                if (!string.IsNullOrEmpty(UserAccountRec.username))
                 {
                     return true;
                 }
@@ -105,6 +106,7 @@ namespace LoyaltySoftware.Pages.Login
 
         public static bool checkPassword(string inputUsername, string inputPassword)
         {
+            UserAccountRec = new UserAccount();
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -121,10 +123,10 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    UserAccount.password = reader.GetString(1);
+                    UserAccountRec.password = reader.GetString(1);
                 }
 
-                if (inputPassword != UserAccount.password)
+                if (inputPassword != UserAccountRec.password)
                 {
                     return false;
                 }
@@ -138,7 +140,7 @@ namespace LoyaltySoftware.Pages.Login
 
         public static int findAccountID(string inputUsername)
         {
-
+            UserAccountRec = new UserAccount();
             using (SqlCommand command = new SqlCommand())
             {
                 DBConnection dbstring = new DBConnection();      //creating an object from the class
@@ -155,16 +157,17 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    UserAccount.account_id = reader.GetInt32(0);
+                    UserAccountRec.account_id = reader.GetInt32(0);
                 }
 
-                return UserAccount.account_id;
+                return UserAccountRec.account_id;
 
             }
         }
 
         public static int getTotalPoints(int accountID)
         {
+            UserdboRec = new Userdbo();
             using (SqlCommand command = new SqlCommand())
             {
 
@@ -182,10 +185,10 @@ namespace LoyaltySoftware.Pages.Login
 
                 while (reader.Read())
                 {
-                    Userdbo.total_points = reader.GetInt32(0);
+                    UserdboRec.total_points = reader.GetInt32(0);
                 }
 
-                return Userdbo.total_points;
+                return UserdboRec.total_points;
             }
         }
     }
