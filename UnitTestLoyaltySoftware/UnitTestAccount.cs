@@ -1,19 +1,18 @@
-using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Login;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestLoyaltySoftware
 {
     [TestClass]
-    public class UnitTestUserAccount
+    public class UnitTestAccount
     {
-        public UserAccount UserAccount { get; set; }
 
         [TestMethod]
         public void TestCheckRole()
         {
             string username = "jsmith1";
             string roleExpected = "member";
-            string roleActual = UserAccount.checkRole(username);
+            string roleActual = AccountMethods.checkRole(username);
             Assert.AreEqual(roleExpected, roleActual);
         }
 
@@ -23,7 +22,7 @@ namespace UnitTestLoyaltySoftware
             string username = "jsmith1";
             string userStatusExpected = "active";
             string userStatusActual;
-            userStatusActual = UserAccount.checkStatus(username);
+            userStatusActual = AccountMethods.checkStatus(username);
             Assert.AreEqual(userStatusActual, userStatusExpected);
         }
 
@@ -31,21 +30,21 @@ namespace UnitTestLoyaltySoftware
         public void TestCheckIfUsernameExists()
         {
             string username = "jsmith1";
-            Assert.IsTrue(UserAccount.checkIfUsernameExists(username));
+            Assert.IsTrue(AccountMethods.checkIfUsernameExists(username));
         }
         [TestMethod]
         public void TestCheckPassword()
         {
             string username = "jsmith1";
             string password = "12345";
-            Assert.IsTrue(UserAccount.checkPassword(username, password));
+            Assert.IsTrue(AccountMethods.checkPassword(username, password));
         }
         [TestMethod]
         public void TestFindAccountID()
         {
             string username = "jsmith1";
             int accountIDExpected = 2029;
-            int accountIDActual = UserAccount.findAccountID(username);
+            int accountIDActual = AccountMethods.findAccountID(username);
             Assert.AreEqual(accountIDExpected, accountIDActual);
         }
 
