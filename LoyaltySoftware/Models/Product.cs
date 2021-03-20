@@ -1,6 +1,8 @@
-﻿using System;
+﻿using LoyaltySoftware.Pages.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,5 +21,9 @@ namespace LoyaltySoftware.Models
 
         [Display(Name = "Description")]
         public string productDescription { get; set; }
+
+
     }
+
+
 }
