@@ -29,7 +29,7 @@ namespace LoyaltySoftware.Pages.Member
 
             UserRec = new Userdbo();
             Username = HttpContext.Session.GetString(SessionKeyName1);
-            AccountID = UserAccount.findAccountID(Username);
+            AccountID = AccountMethods.findAccountID(Username);
 
             using (SqlCommand command = new SqlCommand())
             {

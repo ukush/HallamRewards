@@ -8,6 +8,7 @@ using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using LoyaltySoftware.Pages.Login;
 
 namespace LoyaltySoftware.Pages.Rewards
 {
@@ -46,7 +47,7 @@ namespace LoyaltySoftware.Pages.Rewards
             }
             else
             {
-                AccountID = UserAccount.findAccountID(Username);
+                AccountID = AccountMethods.findAccountID(Username);
             }
 
             using (SqlCommand command = new SqlCommand())

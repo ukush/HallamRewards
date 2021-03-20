@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Login;
 using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace LoyaltySoftware.Pages.Member
 
             UserRec = new Userdbo();
             Username = HttpContext.Session.GetString(SessionKeyName1);
-            AccountID = UserAccount.findAccountID(Username);
+            AccountID = AccountMethods.findAccountID(Username);
 
             using (SqlCommand command = new SqlCommand())
             {

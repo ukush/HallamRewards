@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Login;
 using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,6 +16,8 @@ namespace LoyaltySoftware.Pages.Member
 
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
+        [BindProperty]
+        public AccountMethods UserLoginMethods { get; set; }
 
         public static string uname { get; set; }
 
@@ -34,7 +37,7 @@ namespace LoyaltySoftware.Pages.Member
 
             // check username exists
 
-            if (UserAccount.checkIfUsernameExists(UserAccountRecord.username))
+            if (AccountMethods.checkIfUsernameExists(UserAccountRecord.username))
             {
                 // if username exists then redirect to reset passsword
                 uname = UserAccountRecord.username;

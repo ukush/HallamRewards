@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Wordprocessing;
 using LoyaltySoftware.Models;
+using LoyaltySoftware.Pages.Login;
 using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,6 +20,8 @@ namespace LoyaltySoftware.Pages.Register
 
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
+        [BindProperty]
+        public AccountMethods UserLoginMethods { get; set; }
 
         public string Message1 { get; set; }
         public string Message2 { get; set; }
@@ -52,7 +55,7 @@ namespace LoyaltySoftware.Pages.Register
                 Message3 = "Please enter a password!";
                 return Page();
             }
-            else if (UserAccount.checkIfUsernameExists(UserAccountRecord.username)) 
+            else if (AccountMethods.checkIfUsernameExists(UserAccountRecord.username)) 
              {
                 Message2 = "Username already exists! Please try again.";
                 return Page();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using LoyaltySoftware.Pages.Login;
 using LoyaltySoftware.Models;
 using LoyaltySoftware.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ namespace LoyaltySoftware.Pages.Admin
 
             // check username exists
 
-            if (UserAccount.checkIfUsernameExists(InputUsername))
+            if (AccountMethods.checkIfUsernameExists(InputUsername))
             {
                 // if username exists then update the member status
 
