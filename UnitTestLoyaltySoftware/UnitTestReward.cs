@@ -19,10 +19,5 @@ namespace UnitTestLoyaltySoftware
             Assert.AreEqual(rewardNameExpected, rewardNameActual);
         }
 
-        [TestMethod]
-        public void TestPointsRemoved()
-        {
-
-        }
     }
 }
