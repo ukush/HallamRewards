@@ -25,7 +25,7 @@ namespace LoyaltySoftware.Pages.Shop
         public const string SessionKeyName1 = "username";
         public string SessionID;
         public const string SessionKeyName2 = "sessionID";
-        public Purchase newPurchase;
+        public static Purchase newPurchase;
         public IActionResult OnGet(int? id)
         {
             ProductRec = findProduct(id);
@@ -115,7 +115,7 @@ namespace LoyaltySoftware.Pages.Shop
             return (int)Math.Round(price, 0);  // price of the product is converted to points where is it is rounded to the nearest integer
         }
 
-        public void recordPurchase(int product_id, int user_id)
+        public static void recordPurchase(int product_id, int user_id)
         {
             DBConnection dbstring = new DBConnection();
             string DbConnection = dbstring.DatabaseString();
