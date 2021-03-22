@@ -8,6 +8,6 @@ namespace LoyaltySoftware.Models
     public class Claim
     {
         public int claimId { get; set; }
-        public DateTime dateOfClaim { get; set; }
+        public string dateOfClaim { get; set; }
     }
 }

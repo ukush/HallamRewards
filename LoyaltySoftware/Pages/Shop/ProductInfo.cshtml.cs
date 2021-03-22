@@ -25,12 +25,11 @@ namespace LoyaltySoftware.Pages.Shop
         public const string SessionKeyName1 = "username";
         public string SessionID;
         public const string SessionKeyName2 = "sessionID";
+        public Purchase newPurchase;
         public IActionResult OnGet(int? id)
         {
-
             ProductRec = findProduct(id);
             pointsEarned = calculatePointsEarned(ProductRec.productPrice);
-
             return Page();
 
         }
@@ -47,8 +46,6 @@ namespace LoyaltySoftware.Pages.Shop
             }
             else
             {
-
-                UserRec = new Userdbo();
                 DBConnection dbstring = new DBConnection();
                 string DbConnection = dbstring.DatabaseString();
                 SqlConnection conn = new SqlConnection(DbConnection);
@@ -56,26 +53,27 @@ namespace LoyaltySoftware.Pages.Shop
 
                 Username = HttpContext.Session.GetString(SessionKeyName1);
                 AccountID = UserAccount.findAccountID(Username);
+                UserRec = new Userdbo();
 
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = conn;
 
-                    Userdbo.total_points = Userdbo.getTotalPoints(AccountID);
-
+                    UserRec.total_points = Userdbo.getTotalPoints(AccountID);
+                    UserRec.user_id = Userdbo.getUserId(AccountID);
                     command.CommandText = @"UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
 
-                    Userdbo.total_points += pointsEarned; // add points earned to user's total points
+                    UserRec.total_points += pointsEarned; // add points earned to user's total points
 
                     command.Parameters.AddWithValue("@AID", AccountID);
-                    command.Parameters.AddWithValue("@Pts", Userdbo.total_points);
+                    command.Parameters.AddWithValue("@Pts", UserRec.total_points);
 
                     command.ExecuteNonQuery();
                 }
                 conn.Close();
-
-                return RedirectToPage("/Member/MemberDashboard");
             }
+            recordPurchase(ProductRec.productId, UserRec.user_id);
+            return RedirectToPage("/Member/MemberDashboard");
         }
 
         public static Product findProduct(int? id)
@@ -117,6 +115,32 @@ namespace LoyaltySoftware.Pages.Shop
             return (int)Math.Round(price, 0);  // price of the product is converted to points where is it is rounded to the nearest integer
         }
 
+        public void recordPurchase(int product_id, int user_id)
+        {
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
+            SqlConnection conn = new SqlConnection(DbConnection);
+            conn.Open();
+
+            DateTime dd = DateTime.Now;
+            string date = dd.ToString("dd/MM/yyyy  HH:mm");
+            newPurchase = new Purchase();
+            newPurchase.dateOfPurchase = date;
+
+            using (SqlCommand command = new SqlCommand())
+            {
+                command.Connection = conn;
+                command.CommandText = @"INSERT INTO Purchase (product_id, user_id, purchase_date) VALUES (@PID, @UID, @DateTime)";
+
+                command.Parameters.AddWithValue("@PID", product_id);
+                command.Parameters.AddWithValue("@UID", user_id);
+                command.Parameters.AddWithValue("@DateTime", newPurchase.dateOfPurchase);
+
+                command.ExecuteNonQuery();
+            }
+            conn.Close();
+
+        }
 
 
     }
