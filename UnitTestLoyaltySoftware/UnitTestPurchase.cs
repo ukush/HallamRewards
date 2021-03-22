@@ -30,6 +30,13 @@ namespace UnitTestLoyaltySoftware
             int pointsClaimedActual = ProductInfoModel.calculatePointsEarned(price);
             Assert.AreEqual(pointsClaimedExpected, pointsClaimedActual);
         }
-
+        // Test to verify that a purchase has been recorded into the database by the system.
+        [TestMethod]
+        public void TestRecordPurchase()
+        {
+            int product_id = 11;
+            int user_id = 1026;
+            ProductInfoModel.recordPurchase(product_id, user_id);
+        }
     }
 }
