@@ -7,10 +7,8 @@ namespace LoyaltySoftware.Models
 {
     public class Purchase
     {
-
-        public int Id { get; set; }
         public int purchaseId { get; set; }
-        public int purchasePrice { get; set; }
+        public DateTime dateOfPurchase { get; set; }
 
     }
 }

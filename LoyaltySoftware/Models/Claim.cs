@@ -7,9 +7,7 @@ namespace LoyaltySoftware.Models
 {
     public class Claim
     {
-
-        public int Id { get; set; }
         public int claimId { get; set; }
-        public int pointsSpent { get; set; }
+        public DateTime dateOfClaim { get; set; }
     }
 }
