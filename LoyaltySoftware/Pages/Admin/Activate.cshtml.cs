@@ -40,7 +40,7 @@ namespace LoyaltySoftware.Pages.Admin
 
             // check username exists
 
-            if (AccountMethods.checkIfUsernameExists(InputUsername))
+            if (UserAccount.checkIfUsernameExists(InputUsername))
             {
                 // if username exists then update the member status
 

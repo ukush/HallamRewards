@@ -20,8 +20,6 @@ namespace LoyaltySoftware.Pages.Register
 
         [BindProperty]
         public UserAccount UserAccountRecord { get; set; }
-        [BindProperty]
-        public AccountMethods UserLoginMethods { get; set; }
 
         public string Message1 { get; set; }
         public string Message2 { get; set; }
@@ -55,7 +53,7 @@ namespace LoyaltySoftware.Pages.Register
                 Message3 = "Please enter a password!";
                 return Page();
             }
-            else if (AccountMethods.checkIfUsernameExists(UserAccountRecord.username)) 
+            else if (UserAccount.checkIfUsernameExists(UserAccountRecord.username)) 
              {
                 Message2 = "Username already exists! Please try again.";
                 return Page();

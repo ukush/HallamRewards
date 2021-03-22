@@ -32,13 +32,13 @@ namespace LoyaltySoftware.Pages.Login
             Username = HttpContext.Session.GetString(SessionKeyName1);
             SessionID = HttpContext.Session.GetString(SessionKeyName2);
 
-            AccountID = AccountMethods.findAccountID(Username);
-            TotalPoints = AccountMethods.getTotalPoints(AccountID);
-
             if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))
             {
                 return RedirectToPage("/Login/UserLogin");
             }
+
+            AccountID = UserAccount.findAccountID(Username);
+            TotalPoints = Userdbo.getTotalPoints(AccountID);
 
 
             return Page();

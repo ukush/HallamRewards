@@ -83,7 +83,7 @@ namespace LoyaltySoftware.Pages.Login
             else // if the username is not empty
             {
                 //check if the username is valid
-                if (AccountMethods.checkIfUsernameExists(UserAccount.username)) // check if the username entered exists
+                if (UserAccount.checkIfUsernameExists(UserAccount.username)) // check if the username entered exists
                 {
 
                     //if the username exists...
@@ -94,12 +94,12 @@ namespace LoyaltySoftware.Pages.Login
 
                     // now check the status
 
-                    if (AccountMethods.checkStatus(UserAccount.username) == "suspended") //if the status is suspended
+                    if (UserAccount.checkStatus(UserAccount.username) == "suspended") //if the status is suspended
                     {
                         Message2 = "Your account has been suspended.";
                         return Page();
                     }
-                    else if (AccountMethods.checkStatus(UserAccount.username) == "revoked") // if the status is revoked
+                    else if (UserAccount.checkStatus(UserAccount.username) == "revoked") // if the status is revoked
                     {
                         Message2 = "Your account has been revoked.";
                         return Page();
@@ -108,7 +108,7 @@ namespace LoyaltySoftware.Pages.Login
                     {
                         //check the password field
 
-                        if (!AccountMethods.checkPassword(UserAccount.username, UserAccount.password))  // check that the passowrd is correct
+                        if (!UserAccount.checkPassword(UserAccount.username, UserAccount.password))  // check that the passowrd is correct
                         {
                             Message2 = "Password does not match!"; // if the password does not match display message
                             return Page();
@@ -116,7 +116,7 @@ namespace LoyaltySoftware.Pages.Login
                         else // the password does match
                         {
                             //check the role
-                            if (AccountMethods.checkRole(UserAccount.username) == "member")
+                            if (UserAccount.checkRole(UserAccount.username) == "member")
                             {
                                 ActiveSession = true;
                                 return RedirectToPage("/Member/MemberDashboard");
