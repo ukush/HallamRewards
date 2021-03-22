@@ -32,6 +32,7 @@
 
 <form method="post">
  <input type="hidden" asp-for="pointsEarned" />
+ <input type="hidden" asp-for="@Model.ProductRec.productId" />
  <input type="submit" value="Purchase" class="btn" />
 </form>
 
