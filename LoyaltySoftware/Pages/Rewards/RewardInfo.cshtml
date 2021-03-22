@@ -33,6 +33,7 @@
 
 <form method="post">
  <input type="hidden" asp-for="pointsNeeded" />
+ <input type="hidden" asp-for="@Model.RewardRec.rewardId" />
  <input type="submit" value="Claim Reward" class="btn" />
 </form>
 

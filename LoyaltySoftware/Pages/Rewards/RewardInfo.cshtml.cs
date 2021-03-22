@@ -23,6 +23,7 @@ namespace LoyaltySoftware.Pages.Rewards
         public string Username;
         public int AccountID;
         public const string SessionKeyName1 = "username";
+        public static Claim newClaim;
         public IActionResult OnGet(int? id)
         {
             RewardRec = new Reward();
@@ -41,6 +42,7 @@ namespace LoyaltySoftware.Pages.Rewards
             conn.Open();
 
             Username = HttpContext.Session.GetString(SessionKeyName1);
+            UserRec = new Userdbo();
             if (string.IsNullOrEmpty(Username))  // if user has not signed in yet
             {
                 return RedirectToPage("/Login/UserLogin");
@@ -60,6 +62,7 @@ namespace LoyaltySoftware.Pages.Rewards
 
                 SqlDataReader reader = command.ExecuteReader(); //SqlDataReader is used to read record from a table
                 UserRec = new Userdbo();
+                UserRec.user_id = Userdbo.getUserId(AccountID);
 
                 while (reader.Read())
                 {
@@ -77,6 +80,7 @@ namespace LoyaltySoftware.Pages.Rewards
             }
             conn.Close();
 
+            recordClaim(RewardRec.rewardId, UserRec.user_id);
             return RedirectToPage("/Member/MemberDashboard");
         }
 
@@ -135,6 +139,33 @@ namespace LoyaltySoftware.Pages.Rewards
             }
 
             conn.Close();
+        }
+
+        public void recordClaim(int reward_id, int user_id)
+        {
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
+            SqlConnection conn = new SqlConnection(DbConnection);
+            conn.Open();
+
+            DateTime dd = DateTime.Now;
+            string date = dd.ToString("dd/MM/yyyy  HH:mm");
+            newClaim = new Claim();
+            newClaim.dateOfClaim = date;
+
+            using (SqlCommand command = new SqlCommand())
+            {
+                command.Connection = conn;
+                command.CommandText = @"INSERT INTO Claim (reward_id, user_id, claim_date) VALUES (@RID, @UID, @DateTime)";
+
+                command.Parameters.AddWithValue("@RID", reward_id);
+                command.Parameters.AddWithValue("@UID", user_id);
+                command.Parameters.AddWithValue("@DateTime", newClaim.dateOfClaim);
+
+                command.ExecuteNonQuery();
+            }
+            conn.Close();
+
         }
 
 
