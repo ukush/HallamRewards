@@ -17,7 +17,7 @@ namespace LoyaltySoftware.Pages.Rewards
         [BindProperty]
         public Reward RewardRec { get; set; }
         [BindProperty]
-        public Userdbo UserRec { get; set; }
+        public static Userdbo UserRec { get; set; }
         [BindProperty]
         public int pointsNeeded { get; set; }
         public string Username;
@@ -59,14 +59,14 @@ namespace LoyaltySoftware.Pages.Rewards
                 command.Parameters.AddWithValue("@AID", AccountID);
 
                 SqlDataReader reader = command.ExecuteReader(); //SqlDataReader is used to read record from a table
-
+                UserRec = new Userdbo();
 
                 while (reader.Read())
                 {
-                    Userdbo.total_points = reader.GetInt32(0); //getting the first field from the table
+                    UserRec.total_points = reader.GetInt32(0); //getting the first field from the table
                 }
 
-                if (Userdbo.total_points < pointsNeeded)
+                if (UserRec.total_points < pointsNeeded)
                 {
                     return RedirectToPage("/Rewards/NotEnoughPointsToClaim");
                 }
@@ -121,14 +121,15 @@ namespace LoyaltySoftware.Pages.Rewards
             Console.WriteLine(DbConnection);
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
-            Userdbo.total_points -= pointsRemoved;
+            UserRec = new Userdbo();
+            UserRec.total_points -= pointsRemoved;
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = conn;
                 command.CommandText = "UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
 
                 command.Parameters.AddWithValue("@AID", id);
-                command.Parameters.AddWithValue("@Pts", Userdbo.total_points);
+                command.Parameters.AddWithValue("@Pts", UserRec.total_points);
 
                 command.ExecuteNonQuery();
             }
