@@ -23,6 +23,8 @@ namespace LoyaltySoftware.Pages.Rewards
         public string Username;
         public int AccountID;
         public const string SessionKeyName1 = "username";
+        public string SessionID;
+        public const string SessionKeyName2 = "sessionID";
         public static Claim newClaim;
         public IActionResult OnGet(int? id)
         {
@@ -42,8 +44,9 @@ namespace LoyaltySoftware.Pages.Rewards
             conn.Open();
 
             Username = HttpContext.Session.GetString(SessionKeyName1);
+            SessionID = HttpContext.Session.GetString(SessionKeyName2);
             UserRec = new Userdbo();
-            if (string.IsNullOrEmpty(Username))  // if user has not signed in yet
+            if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(SessionID))  // if user has not signed in yet
             {
                 return RedirectToPage("/Login/UserLogin");
             }
