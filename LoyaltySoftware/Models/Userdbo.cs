@@ -35,13 +35,12 @@ namespace LoyaltySoftware.Models
 
         [Required]
         [Display(Name = "Total Points")]
-        public static int total_points { get; set; }
+        public int total_points { get; set; }
 
-        public static bool checkUserId(int userInputId)
+        public static int getUserId(int account_id)
         {
 
-            int user_id = 0;
-
+            int id = 0;
             using (SqlCommand command = new SqlCommand())
             {
 
@@ -51,25 +50,19 @@ namespace LoyaltySoftware.Models
                 conn.Open();
 
                 command.Connection = conn;
-                command.CommandText = @"SELECT user_id FROM Userdbo WHERE user_id = @UID";
+                command.CommandText = @"SELECT user_id FROM Userdbo WHERE account_id = @AID";
 
-                command.Parameters.AddWithValue("@UID", userInputId);
+                command.Parameters.AddWithValue("@AID", account_id);
 
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    user_id = reader.GetInt32(1);
+                    id = reader.GetInt32(0);
                 }
 
-                if (user_id.Equals(userInputId))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return id;
+
 
             }
         }
@@ -79,7 +72,7 @@ namespace LoyaltySoftware.Models
         {
             using (SqlCommand command = new SqlCommand())
             {
-
+                int points = -1;
                 DBConnection dbstring = new DBConnection();
                 string DbConnection = dbstring.DatabaseString();
                 SqlConnection conn = new SqlConnection(DbConnection);
@@ -94,10 +87,10 @@ namespace LoyaltySoftware.Models
 
                 while (reader.Read())
                 {
-                    total_points = reader.GetInt32(0);
+                    points = reader.GetInt32(0);
                 }
 
-                return total_points;
+                return points;
             }
         }
 
