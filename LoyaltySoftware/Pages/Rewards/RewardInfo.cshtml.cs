@@ -78,7 +78,7 @@ namespace LoyaltySoftware.Pages.Rewards
                 }
                 else
                 {
-                    removePoints(AccountID, pointsNeeded);
+                    removePoints(AccountID, UserRec.total_points, pointsNeeded);
                 }
             }
             conn.Close();
@@ -121,7 +121,7 @@ namespace LoyaltySoftware.Pages.Rewards
             return RewardRec;
         }
 
-        public static void removePoints(int id, int pointsRemoved)
+        public static void removePoints(int id, int total_points, int pointsRemoved)
         {
             DBConnection dbstring = new DBConnection();
             string DbConnection = dbstring.DatabaseString();
@@ -129,14 +129,14 @@ namespace LoyaltySoftware.Pages.Rewards
             SqlConnection conn = new SqlConnection(DbConnection);
             conn.Open();
             UserRec = new Userdbo();
-            UserRec.total_points -= pointsRemoved;
+            total_points -= pointsRemoved;
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = conn;
                 command.CommandText = "UPDATE Userdbo SET points = @Pts WHERE account_id = @AID";
 
                 command.Parameters.AddWithValue("@AID", id);
-                command.Parameters.AddWithValue("@Pts", UserRec.total_points);
+                command.Parameters.AddWithValue("@Pts", total_points);
 
                 command.ExecuteNonQuery();
             }
