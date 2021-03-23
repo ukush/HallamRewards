@@ -44,20 +44,9 @@ namespace LoyaltySoftware.Pages.Admin
             {
                 // if username exists then update the member status
 
+                string username = InputUsername;
 
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = conn;
-                    command.CommandText = @"UPDATE UserAccount SET status = @sts WHERE username = @Uname";
-
-
-                    command.Parameters.AddWithValue("@uname", InputUsername);
-                    command.Parameters.AddWithValue("@sts", UserAccount.UserStatuses[1]);
-
-
-                    command.ExecuteReader();
-                }
-
+                SuspendMember(username);
 
                 return RedirectToPage("/Admin/Confirmation/ConfirmSuspend");
             }
@@ -68,5 +57,30 @@ namespace LoyaltySoftware.Pages.Admin
             }
 
         }
+
+        public static string SuspendMember(string username)
+        {
+
+            DBConnection dbstring = new DBConnection();
+            string DbConnection = dbstring.DatabaseString();
+            Console.WriteLine(DbConnection);
+            SqlConnection conn = new SqlConnection(DbConnection);
+            conn.Open();
+
+            using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = conn;
+                    command.CommandText = @"UPDATE UserAccount SET status = @sts WHERE username = @Uname";
+
+
+                    command.Parameters.AddWithValue("@uname", username);
+                    command.Parameters.AddWithValue("@sts", UserAccount.UserStatuses[1]);
+
+
+                    command.ExecuteReader();
+                }
+            return  UserAccount.checkStatus(username);
+            }
+
     }
 }
