@@ -83,7 +83,7 @@ namespace LoyaltySoftware.Pages.Rewards
             }
             conn.Close();
 
-            recordClaim(RewardRec.rewardId, UserRec.user_id);
+            //recordClaim(RewardRec.rewardId, UserRec.user_id);
             return RedirectToPage("/Member/MemberDashboard");
         }
 
