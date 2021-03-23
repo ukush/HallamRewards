@@ -8,7 +8,7 @@ namespace UnitTestLoyaltySoftware
 {
 
     [TestClass]
-    class UnitTestSuspend
+    public class UnitTestSuspend
     {
 
         [TestMethod]
