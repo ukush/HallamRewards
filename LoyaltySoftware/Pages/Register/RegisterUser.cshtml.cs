@@ -99,7 +99,7 @@ namespace LoyaltySoftware.Pages.Register
 
 
                   conn.Close();
-                  return RedirectToPage("/Login/UserLogin");
+                  return RedirectToPage("/Register/DataProtection");
             }
         }
     }
